@@ -3,16 +3,29 @@ project:
   output-dir: docs
 
 website:
-  title: "lottepohl.github.io"
+  title: "Lotte Pohl"
+  favicon: images/lotte_logo.png
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
-
+      - thesis_docs/acoustic_season_sex.qmd
+      - thesis_docs/vertical_data_exploration.qmd
+      # - master_thesis_updates.qmd
+      - href: files/LottePohl_CV_February2023.pdf
+        text: cv
+      - icon: github # add icons that link to social media, etc.
+        href: https://github.com/lottepohl
+      - icon: twitter
+        href: https://twitter.com/lottepohl
+    
+# supplying a light ("minty") and dark ("slate") theme to toggle between
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: minty
+      dark: slate
     css: styles.css
     toc: true
 

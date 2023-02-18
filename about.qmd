@@ -2,8 +2,19 @@
 title: "About"
 ---
 
-About this site
+## What do I do right now?
 
-```{r}
-1 + 1
-```
+I am currently writing my master thesis at the [Flemish Marine Institute (VLIZ)](https://vliz.be) under the guidance of [Jan Reubens](https://www.linkedin.com/in/jan-reubens-966a8524/), [Niels Brevé](https://www.wur.nl/en/Persons/Niels-NWP-Niels-Breve-MSc.htm) and [Carlota Muñiz](https://www.linkedin.com/in/carlotamuniz/). My thesis project involves data on the starry smooth-hound shark, collected by the [European Tracking Network (ETN)](https://lifewatch.be/etn/). I analyse and visualise the movement of 30 sharks in the most understandable way for non-scientists with an RShiny application. With my work I aim to bridge the gap between science and policy-making through maps and other visualisation methods.
+
+------------------------------------------------------------------------
+
+### My degree - studying all over Europe
+
+My study course is the Erasmus Mundus master's degree in Marine Biological Resources ([IMBRSea](http://imbrsea.eu)) which gives me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master's, I did a bachelor's degree in [Biomimetics](https://www.hs-bremen.de/en/study/degree-programme/international-degree-programme-in-biomimetics-bsc/) at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology.
+
+------------------------------------------------------------------------
+
+## What drives me?
+
+When I was little, my dream was to become a marine biologist, without really knowing what that meant. Now, after spending a good few years at university, I have developed a passion for data and using it to improve our knowledge on the ocean. I am interested in the intersection between science and policy-making, and I believe that in many countries today, science does not inform policy enough. Experts are great in executing complex analyses but what will happen beyond a scientific publication if only experts understand the results?\
+I am motivated to contribute to closing this gap between scientific results and political decisions.

@@ -1,11 +1,39 @@
 ---
-title: "lottepohl.github.io"
+title: "Lotte Pohl"
+image: images/lotte.jpg
+about: 
+  template: trestles
+  image-shape: rounded
+  image-width: 17em
+  links:
+    - text: LinkedIn
+      href: https://www.linkedin.com/in/lotte-pohl-491315185/
+    - text: Twitter
+      href: https://twitter.com/lottepohl
+    - text: GitHub
+      href: https://github.com/lottepohl
+    - text: Email
+      href: mailto:lotte.pohl@vliz.be
 ---
 
-This is a Quarto website.
+**Hi, nice to see you here!**
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Welcome to my website, primarily there to share the latest updates about the exploration and analysis I do for my master thesis :)
 
-```{r}
-1 + 1
-```
+------------------------------------------------------------------------
+
+## Education
+
+-   **Master of Science** in Marine Biological Resources at Ghent University (exptected July, 2023)
+
+-   **Bachelor of Science** in Biomimetics at Bremen University of Applied Sciences (2017 - 2021)
+
+<!-- ## Practical Experience -->
+
+<!-- ### Scientifc Expeditions -->
+
+<!-- ------------------------------------------------------------------------ -->
+
+### CV
+
+Interested to know more about me? Check out my [Curriculum Vitae](files/LottePohl_CV_February2023.pdf) :)

@@ -1,0 +1,594 @@
+---
+title: "DST data: Updates"
+execute:
+  echo: false
+  include: false
+output:
+  html_document:
+    df_print: paged
+    theme: readable
+    toc_float: true
+    toc: true
+    number_sections: false
+    toc_depth: 2
+subtitle: exploratory analysis progress of the DST data, master thesis Lotte Pohl, 16.2.2023
+editor_options:
+  chunk_output_type: console
+knitr:
+  opts_chunk: 
+    collapse: true
+format: 
+  html:
+    page-layout: article
+    code-tools: true
+    fig-width: 8
+    fig-height: 5
+---
+
+<!-- # To Do -->
+
+<!-- **find out how to get toc at the side like in Rmd.** -->
+
+<!-- **find out how to make plots zoomable like in python.** -->
+
+::: column-body-outset
+```{r libraries}
+#| include: false
+library(tidyverse)
+library(lubridate)
+library(leaflet)
+library(tibble)
+library(stringr)
+library(ggsci)
+library(pander)
+library(mregions2)
+library(fuzzyjoin)
+library(sf)
+# library(oce)
+library(plotly)
+
+```
+
+```{r knityes_no}
+knitting <- T
+
+# if the document is not knitting right now, the prefix for path is set to ".", otherwise (for knitting) it's set to ".."
+pre <- ifelse(knitting %>% isFALSE(), ".", "..") 
+pre <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+```
+
+```{r load_functions}
+source(paste0(pre, "/functions/functions_DST_presstemplogs.R"))
+source(paste0(pre, "/functions.R"))
+```
+
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r geo_info}
+#| include: false
+BPNS <- mregions2::gaz_search(3293) %>% mregions2::gaz_geometry()
+# sandbanks <- mregions2::gaz_search(c(2419, 4675, 2421, 2420)) %>% mregions2::gaz_geometry()
+
+# for now, as long as mregions2 does not load in rstudio server
+
+# bpns_boundaries <- st_read('./spatial_data/bpns_boundaries/bpns_boundaries.shp', layer = 'bpns_boundaries')
+sandbanks <- st_read(paste0(pre, '/spatial_data/sea_floor_geomorphology/sea_floor_geomorphology.shp'), layer = 'sea_floor_geomorphology')
+OWFs <- st_read(paste0(pre,"/spatial_data/OWFs_shapefiles/RD20140320_art8_1_20140328.shp"))
+```
+
+```{r map_base}
+#| include: false
+map_base <- create_basic_map(include_regions = T) %>% 
+  setView(3.5, 51.5, zoom = 10) %>% #setView(-3, 52.5, zoom = 9) %>% 
+  addScaleBar(position = "topleft", options = scaleBarOptions(maxWidth = 250, imperial = F)) %>%
+  # add sandbanks
+  addPolygons(data=sandbanks, 
+              fillColor = "#FFF2B3", 
+              weight = 0, 
+              fillOpacity = 0.5, 
+              group = "Sandbanks") %>% 
+  #label = ~preferredGazetteerName, labelOptions = labelOptions(noHide = F, textOnly = F, direction = "center", textsize = "12px", sticky = FALSE)
+  # add OWFs
+  addPolygons(data=OWFs, 
+              color = "red",
+              opacity = 0.5,
+              fillColor = "red", 
+              weight = 1, 
+              fillOpacity = 0.2, 
+              group = "OWFs") %>% 
+  # add BPNS boundary
+  addPolygons(data = BPNS, color = "grey", 
+              weight = 1,
+              opacity = 1.0,
+              fillOpacity = 0, 
+              label = ~preferredGazetteerName, 
+              labelOptions = labelOptions(noHide = F, textOnly = F, direction = "center", textsize = "12px", sticky = FALSE), 
+              group = "Regions") %>%
+  leafem::addMouseCoordinates() 
+
+map_base
+# base_map %>% save_leaflet(path = "./visualisation_ADST/maps_plots", filename = "basic_map_test", filetype = "pdf") #do with other map
+
+```
+
+```{r general_info}
+#| include: false
+project_code <- "ADST-Shark"
+scientific_name <- "Mustelus asterias"
+masterias_recaptured_serials <- c("1293295", "1293304", "1293310", "1293312", "1293319", "1293308", "1293321", "1293322")
+# bounding box
+min_lon <- 0.8
+max_lon <- 5
+max_lat <- 53
+min_lat <- 50
+```
+
+```{r load_RData}
+masterias_info <- read_csv(paste0(pre, "/RData/masterias_info.csv"), show_col_types = FALSE)
+masterias_info <- masterias_info %>% remove_double_cols()
+# masterias_stations <- read_csv(paste0(pre, "/RData/masterias_stations.csv"), show_col_types = FALSE)
+masterias_ind_per_station <- read_csv(paste0(pre, "/RData/masterias_ind_per_station.csv"), show_col_types = FALSE)
+masterias_detections <- read_csv(paste0(pre, "/RData/masterias_detections.csv"), show_col_types = FALSE)
+masterias_deployments <- read_csv(paste0(pre, "/RData/masterias_deployments.csv"), show_col_types = FALSE)
+detections_per_station <- read_csv(paste0(pre, "/RData/detections_per_station.csv"), show_col_types = FALSE)
+detections_per_deployment <- read_csv(paste0(pre, "/RData/detections_per_deployment.csv"), show_col_types = FALSE)
+close_stations <- read_csv(paste0(pre, "/RData/close_stations.csv"), show_col_types = FALSE)
+deployments <- read_csv(paste0(pre, "/RData/deployments.csv"), show_col_types = FALSE)
+
+```
+
+```{r clean_animal_data}
+
+masterias_info <- clean_animal_info(masterias_info, masterias_detections)
+
+# make dateyear and time column in masterias_detections
+masterias_detections$date <- masterias_detections$date_time %>% format("%F")
+masterias_detections$time <- masterias_detections$date_time %>% format("%H:%M")
+
+# remove tags with too few detections - Jan said NO!
+masterias_detections_clean <- masterias_detections %>% filter(!tag_serial_number %in% c("1293319", "1293317", "1293316", "1293314","1293311", "1293309", "1293301", "1293296", "1293295"))
+
+# remove deployments outside of detection time frame
+deployments <- deployments %>% filter(recover_date_time < masterias_detections_clean$date_time %>% max())
+# %>% filter(deploy_date_time > masterias_detections_clean$date_time %>% min())
+```
+
+```{r read_DST}
+#| include: false
+# mpt_1293295_Det0 <- read_csv("../dst_data/01_modelled_tracks/1293295/Sat0_Catch1_Det0_Behav0_res1.0/D_mle/Tracks/MA_SN1293295_mpt_track_positions.csv", show_col_types = FALSE)
+mpt_1293295_Det1 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293295/Sat0_Catch1_Det1_Behav0_res1.0/D_mle/Tracks/MA_SN1293295_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293295")
+# press_1293295 <- read_csv("../dst_data/02_pressure_temperature/ADST_log_SN1293295/SN1293295_pressure_log.csv", show_col_types = FALSE)
+# temp_1293295 <- read_csv("../dst_data/02_pressure_temperature/ADST_log_SN1293295/SN1293295_temperature_log.csv", show_col_types = FALSE)
+
+mpt_1293304_Det0 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293304/Sat0_Catch1_Det0_Behav0_res1.0/D_mle/Tracks/MA_SN1293304_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293304")
+
+mpt_1293308_Det1 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293308/Sat0_Catch1_Det1_Behav0_res1.0/D_mle/Tracks/MA_SN1293308_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293308")
+
+mpt_1293310_Det0 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293310/Sat0_Catch1_Det0_Behav0_res1.0/D_mle/Tracks/MA_SN1293310_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293310")
+
+mpt_1293312_Det0 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293312/Sat0_Catch1_Det0_Behav0_res1.0/D_mle/Tracks/MA_SN1293312_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293312")
+
+# mpt_1293319_Det0 <- read_csv("../dst_data/01_modelled_tracks/1293319/Sat0_Catch1_Det0_Behav0_res1.0/D_mle/Tracks/MA_SN1293319_mpt_track_positions.csv"), show_col_types = FALSE)
+mpt_1293319_Det1 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293319/Sat0_Catch1_Det1_Behav0_res1.0/D_mle/Tracks/MA_SN1293319_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293319")
+
+mpt_1293321_Det1 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293321/Sat0_Catch1_Det1_Behav0_res1.0/D_mle/Tracks/MA_SN1293321_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293321")
+
+mpt_1293322_Det1 <- read_csv(paste0(pre, "/dst_data/01_modelled_tracks/1293322/Sat0_Catch1_Det1_Behav0_res1.0/D_mle/Tracks/MA_SN1293322_mpt_track_positions.csv"), show_col_types = FALSE) %>% mutate(tag_serial_number = "1293322")
+```
+
+```{r wrangle_dst_data}
+#| include: false
+# make one df combining all DST trajectories
+mpts_all <- rbind(mpt_1293295_Det1, mpt_1293304_Det0, mpt_1293308_Det1, mpt_1293310_Det0, mpt_1293312_Det0, mpt_1293319_Det1, mpt_1293321_Det1, mpt_1293322_Det1) %>% rename(detection_latitude = lat_dg, detection_longitude = long_dg, date_time = date) %>% select(tag_serial_number, detection_latitude, detection_longitude, date_time)
+
+
+# change date format
+mpts_all$date <- mpts_all$date_time %>% format("%m-%d")
+# mpts_all$tag_serial_number <- mpts_all$tag_serial_number %>% as.factor()
+# mpts_all$tag_serial_number <- mpts_all$tag_serial_number %>% as.character()
+
+mpts_all <- mpts_all %>% left_join(masterias_info %>% select(tag_serial_number, sex, life_stage, length1, weight), by = "tag_serial_number")
+
+mpts_short <- mpts_all %>% filter(!tag_serial_number %in% c("1293308", "1293321"))
+
+# # change date to 2018 of 3 animals tagged 2019
+# mpts_2019 <- rbind(mpt_1293304_Det0, mpt_1293310_Det0, mpt_1293312_Det0)
+# mpts_2019$date <- mpts_2019$date - years(1)
+#   
+# mpts_short <- rbind(mpts_2019, mpt_1293295_Det1, mpt_1293319_Det1, mpt_1293322_Det1) %>%
+#   rename(detection_latitude = lat_dg, detection_longitude = long_dg, date_time = date) %>% select(tag_serial_number, detection_latitude, detection_longitude, date_time)
+
+
+# remove single files
+rm(mpt_1293295_Det1, mpt_1293304_Det0, mpt_1293308_Det1, mpt_1293310_Det0, mpt_1293312_Det0, mpt_1293319_Det1, mpt_1293321_Det1, mpt_1293322_Det1)
+```
+
+<!-- Layout fills more of page -->
+
+<!-- :::{.column-body-outset} -->
+
+<!-- # Some info about the animals -->
+
+```{r info sharks}
+summary_masterias_length <- masterias_info %>% group_by(sex) %>% summarise(mean_length = length1 %>% mean(), sd_length = length1 %>% sd())
+```
+
+<!-- Males had a total length (TL) of `r summary_masterias_length %>% filter(sex == "m") %>% select(mean_length) %>% round(digits = 2) %>% pull()` cm ($\pm$ `r summary_masterias_length %>% filter(sex == "m") %>% select(sd_length) %>% round(digits = 2) %>% pull()`, n = `r masterias_info %>% filter(sex == "m") %>% nrow()`). -->
+
+<!-- Females had a TL of `r summary_masterias_length %>% filter(sex == "f") %>% select(mean_length) %>% round(digits = 2) %>% pull()` cm ($\pm$ `r summary_masterias_length %>% filter(sex == "f") %>% select(sd_length) %>% round(digits = 2) %>% pull()`, n = `r masterias_info %>% filter(sex == "f") %>% nrow()`). -->
+
+## where we left off
+
+6 out of 8 recovered tags stopped recording 13-38 days after tagging, i.e. the animal died.
+
+::: panel-tabset
+### map
+
+```{r shortterm_map}
+#| include: true
+# pal_dst_short <- colorNumeric(palette = "viridis", domain = mpts_short$date %>% as.cha)
+# legend_dates_short = c("2018-07-15", "2018-08-01", "2018-08-15")
+
+col_fun <- ggsci::pal_locuszoom()(mpts_short$tag_serial_number %>% unique() %>% length())
+pal <- leaflet::colorFactor(col_fun, domain = mpts_short$tag_serial_number)
+
+map_dst_short <- map_base %>%
+  # add tag 295
+    addPolylines(data = mpts_short %>% filter(tag_serial_number == "1293295"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#D43F3A>tag 295</span>") %>%
+  addCircleMarkers(data = mpts_short %>% filter(tag_serial_number == "1293295"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#D43F3A>tag 295</span>") %>%
+    # add tag 304
+    addPolylines(data = mpts_short %>% filter(tag_serial_number == "1293304"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#EEA236>tag 304</span>") %>%
+  addCircleMarkers(data = mpts_short %>% filter(tag_serial_number == "1293304"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#EEA236>tag 304</span>") %>%
+   # add tag 310
+    addPolylines(data = mpts_short %>% filter(tag_serial_number == "1293310"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#5CB85C>tag 310</span>") %>%
+  addCircleMarkers(data = mpts_short %>% filter(tag_serial_number == "1293310"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#5CB85C>tag 310</span>") %>%
+   # add tag 312
+    addPolylines(data = mpts_short %>% filter(tag_serial_number == "1293312"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#46B8DA>tag 312</span>") %>%
+  addCircleMarkers(data = mpts_short %>% filter(tag_serial_number == "1293312"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#46B8DA>tag 312</span>") %>%
+   # add tag 319
+    addPolylines(data = mpts_short %>% filter(tag_serial_number == "1293319"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#357EBD>tag 319</span>") %>%
+  addCircleMarkers(data = mpts_short %>% filter(tag_serial_number == "1293319"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#357EBD>tag 319</span>") %>%
+   # add tag 322
+    addPolylines(data = mpts_short %>% filter(tag_serial_number == "1293322"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#9632B8>tag 322</span>") %>%
+  addCircleMarkers(data = mpts_short %>% filter(tag_serial_number == "1293322"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#9632B8>tag 322</span>") %>%
+  addLayersControl(position = "topright",
+                   overlayGroups = c("<span style=color:#D43F3A>tag 295</span>", "<span style=color:#EEA236>tag 304</span>", "<span style=color:#5CB85C>tag 310</span>", "<span style=color:#46B8DA>tag 312</span>", "<span style=color:#357EBD>tag 319</span>", "<span style=color:#9632B8>tag 322</span>"),
+                   options = layersControlOptions(collapsed = FALSE)) 
+# %>%
+#   addLegend(position = "topleft",
+#             colors = legend_dates_short %>% as.POSIXct() %>% pal_dst_short(),
+#             labels = legend_dates_short, opacity = 1,
+#             title = "Dates")
+
+map_dst_short
+
+```
+
+### info
+
+```{r info_shorttermDST}
+#| include: true
+knitr::kable(masterias_info %>% filter(tag_serial_number %in% c("1293295", "1293304", "1293310", "1293312", "1293319", "1293322")) %>% select(animal_id, tag_serial_number, tag_type, scientific_name, capture_depth, release_date_time, release_latitude, release_longitude, recapture_date_time, length1, length1_unit, weight, weight_unit, sex, life_stage, detected) %>% relocate(tag_serial_number, release_date_time, detected, sex, life_stage, length1, length1_unit, weight, weight_unit, capture_depth, recapture_date_time))
+```
+:::
+
+Looking at the 6 tracks in more detail, it strikes that 3 sharks swam to the wind farms while 3 sharks stayed very close to the release location, namely tag 304 (female, `r mpts_short %>% filter(tag_serial_number == "1293304") %>% nrow()` days of liberty), tag 310 (male, `r mpts_short %>% filter(tag_serial_number == "1293310") %>% nrow()` days of liberty) and tag 312 (females, `r mpts_short %>% filter(tag_serial_number == "1293312") %>% nrow()` days of liberty). Those 3 sharks were released in 2019.
+
+<!-- ## Read in Vertical Data -->
+
+<!-- pressure sensor details:  maximum depth 68 m, accuracy ±1.0, sampling rate: 0.5 Hz. -->
+
+```{r read_presslog}
+colnames <- c("ADST DATA LOG", "1.0.0", "AdstConverter-1.0.5", "...4", "...5", "...6", "...7", "...8", "...9", "...10", "...11")
+press_295 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293295/SN1293295_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_304 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293304/SN1293304_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_308 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293308/SN1293308_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_310 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293310/SN1293310_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_312 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293312/SN1293312_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_319 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293319/SN1293319_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_322 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293322/SN1293322_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+press_321 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293321/SN1293321_pressure_log.csv"), show_col_types = FALSE, col_names = colnames)
+
+```
+
+```{r read_templog}
+temp_295 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293295/SN1293295_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_304 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293304/SN1293304_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_308 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293308/SN1293308_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_310 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293310/SN1293310_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_312 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293312/SN1293312_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_319 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293319/SN1293319_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_322 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293322/SN1293322_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+temp_321 <- read_csv(paste0(pre, "/dst_data/02_pressure_temperature/ADST_log_SN1293321/SN1293321_temperature_log.csv"), show_col_types = FALSE, col_names = colnames)
+```
+
+```{r wrangle_temppress}
+press_temp_295 <- create_press_temp(press_295, temp_295, "1293295", cutoff_days = 10)
+press_temp_304 <- create_press_temp(press_304, temp_304, "1293304", cutoff_days = 10)
+press_temp_308 <- create_press_temp(press_308, temp_308, "1293308", cutoff_days = 10)
+press_temp_310 <- create_press_temp(press_310, temp_310, "1293310", cutoff_days = 10)
+press_temp_312 <- create_press_temp(press_312, temp_312, "1293312", cutoff_days = 10)
+press_temp_319 <- create_press_temp(press_319, temp_319, "1293319", cutoff_days = 10)
+press_temp_322 <- create_press_temp(press_322, temp_322, "1293322", cutoff_days = 10)
+press_temp_321 <- create_press_temp(press_321, temp_321, "1293321", cutoff_days = 10)
+
+# remove unneeded files
+# rm(temp_295, temp_304, temp_310, temp_312, temp_319, temp_322,
+#    press_295, press_304, press_310, press_312, press_319, press_322)
+```
+
+## depth and temperature profiles
+
+::: panel-tabset
+### tag 295
+
+This shark (male) swam out to the OWF.
+
+```{r depth_plot_295}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_295, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+### tag 304
+
+This shark (female) stayed in the Oosterscheldt.
+
+```{r depth_plot_304}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_304, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+### tag 310
+
+This shark (male) stayed in the Oosterscheldt.
+
+```{r depth_plot_310}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_310, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+### tag 312
+
+This shark (female) stayed in the Oosterscheldt.
+
+```{r depth_plot_312}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_312, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+### tag 319
+
+This shark (female) swam out to the OWF.
+
+```{r depth_plot_319}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_319, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+### tag 322
+
+This shark (female) swam out to the OWF.
+
+```{r depth_plot_322}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_322, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+:::
+
+## depth and temp profiles of long term DST data
+
+These are the profiles of the 2 tags that recorded for over a year.
+
+::: panel-tabset
+### tag 308
+
+This shark (female) swam south into the English Channel.
+
+```{r depth_plot_308}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_308, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+### tag 321
+
+This shark (male) swam north into the Southern North Sea.
+
+```{r depth_plot_321}
+#| include: true
+# plot <- 
+  ggplot() +
+  geom_point(data = press_temp_321, aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+:::
+
+## what I plan to do now
+
+-   I would like to segment the vertical data logs into behavioural patterns. This was done by Heerah et al., 2017 (<https://doi.org/10.1186/s40462-017-0111-3>). I spent a day with it already, but it is not trivial to format the code to the *M. asterias* DST data. To correctly do this, I would need the help of someone that has already done this. Jolien supervised a thesis in 2020 (Camille Boileau-Locas), that did that as well, but I know she has a lot to do right now. Mathieu Woillez also co-authored the paper by Karine Heerah, so I could contact him as well, potentially. What do you suggest?
+
+-   The method of Heerah et al., 2017 uses STFT, a modified version of FFT. I was thinking that I maybe at first do a regular FFT to look at the periodic patterns of the signals.
+
+-   Griffiths et al., 2020 (<https://doi.org/10.1371/journal.pone.0239480>) did not use any fancy/complex Hidden Markov Models like Heerah but they calculated statistics such as the time spent at certain depth bins, vertical speed, seabed proximity, or vertical movement behvaiour (based on a Wilcoxon test).
+
+-   I am unsure right now what analyses could best shed light on behavioural patterns of the sharks. What are your suggestions?
+
+<!-- * For visualisation purposes, I want to unify the horizontal aspect (i.e. the output of the geolocation models) with the depth and temperature logs. -->
+
+<!-- ## What happened to tags 295, 304, 310, 312, 319 and 322 which ended up at the Offshore Wind Farm? {.tabset} -->
+
+<!-- ### Did they get preyed by a seal? -->
+
+<!-- ### Did they get fished? -->
+
+<!-- What about inline text commands, like an equivalent to `\newcommand{}` ? $$ -->
+
+<!-- \chi^2 -->
+
+<!-- $$ {#eq-chi} -->
+
+<!-- # Acoustic Data -->
+
+<!-- ## detections of animals per sex and per season -->
+
+<!-- *map with detections and toggle on/off, but not per year (as in last deliverable) but per sex and per season (quartile?)* -->
+
+<!-- ## Distance travelled per day (per sex and season) -->
+
+<!-- *from [https://jamesepaterson.github.io/jamespatersonblog/02_trackingworkshop_trajectories](james paterson's tutorial), see if there are differences* -->
+:::
+
+<!-- ```{r remove_large_files} -->
+
+<!-- # Remove large files -->
+
+<!-- # file.remove("tmp_map.html") -->
+
+<!-- unlink("./vertical_data_exploration/vertical_data_exploration_files", recursive = TRUE) -->
+
+<!-- ``` -->
