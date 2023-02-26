@@ -10,9 +10,9 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
-      - thesis_docs/acoustic_season_sex.qmd
-      - thesis_docs/vertical_data_exploration.qmd
-      # - master_thesis_updates.qmd
+      - thesis_updates.qmd
+      # - thesis_docs/acoustic_season_sex.qmd
+      # - thesis_docs/vertical_data_exploration.qmd
       - href: files/LottePohl_CV_February2023.pdf
         text: cv
       - icon: github # add icons that link to social media, etc.

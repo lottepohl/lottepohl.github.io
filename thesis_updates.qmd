@@ -1,0 +1,33 @@
+---
+title: "Master Thesis Updates"
+listing: 
+  contents: thesis_docs # all Quarto docs in this directory will be included on your listing page
+  type: default # or `grid` or `table`; each type has its own set of yaml options to include
+  sort: "date desc" # can also sort on more than one field
+  categories: false # allows you to sort posts by assigned categories 
+  # more YAML options: https://quarto.org/docs/websites/website-listings.html
+---
+
+Hi there! Below you find some general updates. The documents on the bottom this page give a more detailed insight into my progress.
+
+### Updates 27.2.23
+
+-   I plan to dedicate the month of March fully to data analysis
+    -   Vertical Home range analysis / KUD (DST data)
+    -   Horizontal Home range analysis / KUD (acoustic detection data)
+    -   behavioural segmentation with STFT/FFT and HMM (DST data)
+    -   actel and RSP analysis (acoustic detection data)
+-   In April, I want to start writing and building the data visualisation/product, potentially using R [Flexdashboard](https://pkgs.rstudio.com/flexdashboard/articles/examples.html) (similar to RShiny).
+-   In May, I would like to touch up on the analysis and the visualisation and concentrate on writing.
+
+#### Central Questions
+
+1.  What Journal would you aim for publishing the thesis paper in? We already have to write the thesis in the Journal's format. My idea would be the *Journal of Animal Biotelemetry*, what do you think?
+
+2.  Are you planning to go tagging some time? I would really like to join.
+
+3.  Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g. \[Somayeh Dodge\[(https://somayehdodge.info)\] who has many impressive publications on the topic.
+
+------------------------------------------------------------------------
+
+## Update Documents

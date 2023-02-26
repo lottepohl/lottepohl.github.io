@@ -1,0 +1,45 @@
+---
+title: "One Barnacle at a time"
+author: "Lotte Pohl"
+---
+
+> It's always a pleasure to be out at sea, because you realise once again how many treasures and secrets it holds.
+
+## Sea Diaries, pt. 1
+
+Last week, I was on a 3-day sea campaign with the 37 m *Simon Stevin*, a Belgian research vessel. We were out in the Belgian Part of the North Sea (BPNS), fun fact: this part of the North Sea is the most researched ocean part in the world [@reubens_2023].
+
+On the boat were 19 people in total, amongst them 8 scientists. We were carrying out maintenance work that needs to be done regularly for the so-called *European Tracking Network* (ETN) to function. At one point in time, there are over 100 <!--# check exact # of stations --> acoustic receivers in the water, which listen to underwater sounds.
+
+Underwater sound can have different frequencies (humans can, for example, hear frequencies between 20 Hz and 20 kHz), and the receivers that are in the water for ETN listen to frequencies of 69 <!--# ? check! --> kHz. That is, because the tags that were put inside different species of fish, emit pings with $\pm$ 69 kHz. They all differ slightly in frequency (they basically each have their own fingerprint frequency), by which the tag serial number, and with that the animal it's inside, can be identified.
+
+The acoustic receivers are attached to so-called moorings/tripods, heavy metal frames that are lowered to the seafloor. Many organisms that are free-floating in the water and would like to settle somewhere, for example mussels and barnacles. And this metal frame, a hard surface on all the sand on the seafloor, is a welcome settling ground. Every 6 months or so, each tripod needs to be lifted onto the ship. Then, the data is downloaded from the receiver, and the batteries are exchanged. And, the most time consuming thing of all, the tripod gets cleaned. This was my pleasure on the campain!
+
+<!--# [image_acoustic_receiver_tripod.jpg] -->
+
+You basically need waterproof clothing, gloves, a life vest and a scraper to clean a tripod. And lots of muscles! Barnacles and other animals seem to love the tripods and they are very stubborn to get off, I can tell you that... At dinner on out first day at sea, I had scraped so much that I couldn't hold a fork anymore :D
+
+We had this very big metal frame of Clea, a PhD-student student in Hydroacoustics, which had a lot of surface and so a lot of cleaning/scraping work was required. It took 2-3 people around 2 hours to clean it all.
+
+<!--# [image metal frame before/after - maybe from last year?] -->
+
+But as you clean, you see so many small animals that *kreuchen und fleuchen* everywhere! And even small anemones we saw. And tons of crabs!
+
+<!--# slide show of images: squid eggs (do I have a photo? someone else?), nudibranches, barnacles, amphipods -->
+
+### The beauty of barnacles
+
+Barnacles are quite fascinating animals I find. They settle down once in their lifetime and they have this super-hard-to-crack shell that we always see. You cannot really imagine that there's a living thing inside, right? Well, during the scraping we removed a lot of barnacles, so we could see the animals inside. I feel a bit bad for all the barnacle lives I ended during these days :(
+
+But I wanted to share how the animal inside looks like!
+
+<!--# [image of barnacle inside] -->
+
+### Plenty of fish/other things in the North Sea
+
+We found astonishingly many different sea creatures! Nudibranchs, for example.\
+We were lucky to have a marine invertebrate nerd on board (thanks, Bram!) that just had a great sensitivity to spotting small, special animals on the tripods while cleaning them. Did you know there were nudibranches in the North Sea? Well, I have to admit, I didn't. They were so tiny and so adorable!!
+
+And the amount of different crab species we found....just mind-blowing. I challenge everyone to rethink when they say that the North Sea is boring! I didn't want to hear it at first either, but after literally playing with a bottlenose dolphin for an hour <!--# see this blog post --> I am slowly becoming an advocate for this muddy blue, cold water body.
+
+<!--# slide show of images: squid eggs (do I have a photo? someone else?), nudibranches, barnacles, amphipods -->
