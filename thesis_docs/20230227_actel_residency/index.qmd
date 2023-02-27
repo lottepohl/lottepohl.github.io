@@ -1,0 +1,223 @@
+---
+title: "actel analysis"
+execute:
+  echo: false
+  include: false
+output:
+  html_document:
+    df_print: paged
+    theme: readable
+    toc_float: true
+    toc: true
+    number_sections: false
+    toc_depth: 2
+subtitle: progress of the actel analysis, master thesis Lotte Pohl, 27.2.2023
+editor_options:
+  chunk_output_type: console
+knitr:
+  opts_chunk: 
+    collapse: true
+format: 
+  html:
+    page-layout: article
+    # code-tools: true
+    fig-width: 8
+    fig-height: 5
+    toc: true
+image: image.PNG
+---
+
+
+```{r libraries}
+#| include: false
+library(tidyverse)
+library(lubridate)
+library(leaflet)
+library(tibble)
+library(stringr)
+library(ggsci)
+# library(pander)
+library(mregions2)
+# library(fuzzyjoin)
+library(sf)
+# library(plotly)
+library(actel)
+
+```
+
+```{r settings_knitting}
+
+rm(list = ls())
+dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+path_envdata <- paste0(dir_path, "/03_data/environmental_layers/")
+path_boundaries <- paste0(dir_path, "/03_data/marine_boundaries/")
+actel_results <- paste0(dir_path, "/04_analysis_results/actel/residency/")
+```
+
+```{r load_functions}
+source(paste0(dir_path, "/functions.R"))
+source(paste0(dir_path, "/functions/functions_DST_presstemplogs.R"))
+# make into file in `wrangle_data` folder
+```
+
+```{r load_data}
+source(paste0(dir_path, "/02_scripts/01_save_data/save_actel_files.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_actel_files.R"))
+results_residency <- load_data(filestring = "results_residency", folder = paste0(dir_path, "/04_analysis_results/actel/residency/"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_environmental_data.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_human_activities.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_marine_boundaries.R"))
+# source(paste0(dir_path, "/02_scripts/03_wrangle_data/wrangle_acoustic_data.R"))
+```
+
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+
+```{r basemapsnippets}
+
+# for emodnet layer
+emodnet_tiles <-"https://tiles.emodnet-bathymetry.eu/2020/baselayer/web_mercator/{z}/{x}/{y}.png"
+cite_emodnet <- "<a href='https://emodnet.ec.europa.eu'>EMODnet</a>"
+  attr(cite_emodnet, "class") <- c("html", "character")
+  
+
+basemap_snippets <- leaflet::leaflet(
+  # options = leaflet::leafletOptions(crs = leaflet::leafletCRS("L.CRS.EPSG4326"))
+                                  ) %>%
+  # ADD BASELAYERS ####
+  addProviderTiles("Esri.WorldImagery", options = providerTileOptions(opacity = 0.6), group = "satellite") %>%
+  leaflet::addTiles(urlTemplate = emodnet_tiles,
+      # options = leaflet::tileOptions(tms = FALSE),
+      attribution = cite_emodnet,
+      group = "EMODnet bathymetry") %>%
+  # SCALEBAR ####
+  addScaleBar(position = "topright", options = scaleBarOptions(maxWidth = 250, imperial = F)) %>%
+  setView(3.3, 51.5, zoom = 8) %>% 
+  #### BPNS ####
+  addPolygons(data = BPNS, color = "grey", 
+              weight = 2,
+              opacity = 1.0,
+              fillOpacity = 0, 
+              group = "Regions") %>%
+    #### submarine cables ####
+  addPolylines(data = cables,
+               color = "blue",
+               opacity = 0.15,
+               label = ~name,
+               group = "wrecks, OWFs, cables") %>%
+  #### windfarms ####
+  addPolygons(data = windfarms_polygons %>% filter(!status %in% c("Approved", "Planned")),
+              color = "red",
+              weight = 2,
+              opacity = 1,
+              fillOpacity = 0.3,
+              label = ~paste0("status: ", status, ", country: ", country, ", year: ", year),
+              group = "wrecks, OWFs, cables") %>%
+  #### shipwrecks ####
+  addCircleMarkers(data = wrecks,
+                 fillColor = "lightgreen",
+                 opacity = 0,
+                 fillOpacity = 1,
+                 radius = 3,
+                 label = ~paste0("Object: ", obj_type, ", sink year: ", sink_yr),
+                 group = "wrecks, OWFs, cables") %>%
+  addCircleMarkers(data = wrecks_BE %>% filter(Staat != "Geborgen"),
+                   lng = ~longitude,
+                   lat = ~latitude,
+                   fillColor = "lightgreen",
+                   opacity = 0,
+                   fillOpacity = 1,
+                   radius = 3,
+                   label = ~paste0("Object: ", Type, ", sink date: ", sink_yr, ", status: ", Staat, ", material: ", Materiaal, ", name: ", Naam),
+                   group = "wrecks, OWFs, cables") #%>%
+  
+basemap_snippets
+
+```
+
+
+I ran an actel `residency` analysis, here are some first results. They give some insights into diel patterns of individuals, and residency times in different areas.
+
+### Study Area
+
+The area consists of two *Sections*, the BPNS and the Westerschelde, which contain several Receiver Arrays.
+
+```{r overview map}
+#| include: true
+
+col_scale_areas <- c("black", "darkgrey","#E67D1F", "#EFC000")
+# pal_dst <- colorNumeric(palette = c("black", "grey","#E67D1F", "#EFC000"), domain = Spatial$Array) 
+
+Spatial$Array <- Spatial$Array %>% as.factor()
+pal <- colorFactor(palette = col_scale_areas, domain = Spatial$Array)
+
+map_spatial <- basemap_snippets %>%
+  addCircleMarkers(data = Spatial %>% filter(Type == "Hydrophone"),
+                   lat = ~Latitude,
+                   lng = ~Longitude,
+                   fillColor = ~pal(Array),
+                   weight = 0,
+                   radius = 5,
+                   fillOpacity = 0.7,
+                   label = ~Station.name) %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = "wrecks, OWFs, cables",
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addLegend(position = "bottomright",
+            opacity = 1,
+            # pal = pal,
+            colors = col_scale_areas,
+            labels = c("coast", "offshore", "WS1", "WS2"),
+            title = "Arrays")
+
+map_spatial
+```
+
+### Arrival times
+
+![](arrival_times1.PNG)
+
+
+![](arrival_times2.PNG)
+
+### Global residency
+
+#### Absolute
+
+![](residency_global1.PNG)
+
+#### Relative
+
+![](residency_global2.PNG)
+
+### Individual residency
+
+![](residency1.PNG)
+
+![](residency2.PNG)
+
+![](residency3.PNG)
+
+![](residency4.PNG)
+
+![](residency5.PNG)
+
+![](residency6.PNG)
+
+<!-- ### Array arrival times -->
+
+<!-- ```{r times} -->
+<!-- plotTimes(results_residency) -->
+
+<!-- results_residency$array.times %>% View() # plotTimes() -->
+
+<!-- results_residency$time.ratios$`A69-9006-3782`%>% plotResidency() -->
+
+<!-- ``` -->
+

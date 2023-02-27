@@ -185,7 +185,7 @@ map_releases_stations <- leaflet::leaflet(
                    opacity = 1,
                    fillOpacity = 0.8,
                    label = ~station_name,
-                   highlightOptions = highlightOptions(bringToFront = TRUE),
+                   # highlightOptions = highlightOptions(bringToFront = TRUE),
                    group = "<span style=color:black>stations</span>") %>%
   # ADD CONTROLS #####
   leafem::addMouseCoordinates() %>%

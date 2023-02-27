@@ -27,13 +27,6 @@ format:
 image: image.PNG
 ---
 
-<!-- # To Do -->
-
-<!-- **find out how to get toc at the side like in Rmd.** -->
-
-<!-- **find out how to make plots zoomable like in python.** -->
-
-::: column-body-outset
 ```{r libraries}
 #| include: false
 library(tidyverse)
@@ -71,162 +64,10 @@ source(paste0(dir_path, "/02_scripts/02_load_data/load_marine_boundaries.R"))
 source(paste0(dir_path, "/02_scripts/03_wrangle_data/wrangle_acoustic_data.R"))
 ```
 
-<!-- ```{r knityes_no} -->
-
-<!-- knitting <- T -->
-
-<!-- path_envdata <- "/03_data/environmental_layers/" -->
-
-<!-- path_boundaries <- "/03_data/marine_boundaries/" -->
-
-<!-- # if the document is not knitting right now, the prefix for path is set to ".", otherwise (for knitting) it's set to ".." -->
-
-<!-- pre <- ifelse(knitting %>% isFALSE(), ".", "..")  -->
-
-<!-- ``` -->
-
-<!-- ```{r load_info} -->
-
-<!-- source(paste0(dir_path, "/functions/functions_DST_presstemplogs.R")) -->
-
-<!-- source(paste0(dir_path, "/functions.R")) -->
-
-<!-- source(paste0(dir_path, "/02_scripts/load_data/load_human_activities.R")) -->
-
-<!-- source(paste0(dir_path, "/02_scripts/load_data/load_marine_boundaries.R")) -->
-
-<!-- ``` -->
-
 ```{r setup}
 #| include: false
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
-
-```{r general_info}
-#| include: false
-project_code <- "ADST-Shark"
-scientific_name <- "Mustelus asterias"
-masterias_recaptured_serials <- c("1293295", "1293304", "1293310", "1293312", "1293319", "1293308", "1293321", "1293322")
-# bounding box
-min_lon <- 0
-max_lon <- 5
-max_lat <- 53
-min_lat <- 50
-```
-
-<!-- ```{r load_Rdata} -->
-
-<!-- masterias_info <- read_csv(paste0(dir_path, "/RData/masterias_info.csv"), show_col_types = FALSE) -->
-
-<!-- masterias_info <- masterias_info %>% remove_double_cols() -->
-
-<!-- # masterias_stations <- read_csv(paste0(dir_path, "/RData/masterias_stations.csv"), show_col_types = FALSE) -->
-
-<!-- masterias_ind_per_station <- read_csv(paste0(dir_path, "/RData/masterias_ind_per_station.csv"), show_col_types = FALSE) -->
-
-<!-- masterias_detections <- read_csv(paste0(dir_path, "/RData/masterias_detections.csv"), show_col_types = FALSE) -->
-
-<!-- masterias_deployments <- read_csv(paste0(dir_path, "/RData/masterias_deployments.csv"), show_col_types = FALSE) -->
-
-<!-- detections_per_station <- read_csv(paste0(dir_path, "/RData/detections_per_station.csv"), show_col_types = FALSE) -->
-
-<!-- detections_per_deployment <- read_csv(paste0(dir_path, "/RData/detections_per_deployment.csv"), show_col_types = FALSE) -->
-
-<!-- close_stations <- read_csv(paste0(dir_path, "/RData/close_stations.csv"), show_col_types = FALSE) -->
-
-<!-- deployments <- read_csv(paste0(dir_path, "/RData/deployments.csv"), show_col_types = FALSE) -->
-
-<!-- ``` -->
-
-<!-- ```{r clean_animal_data} -->
-
-<!-- masterias_info <- clean_animal_info(masterias_info, masterias_detections) -->
-
-<!-- # make dateyear and time column in masterias_detections -->
-
-<!-- masterias_detections <- masterias_detections %>% mutate(tag_serial_number = tag_serial_number %>% as.character(), -->
-
-<!--                                                         time = date_time %>% as.Date("%H:%M", tz = "UTC"), -->
-
-<!--                                                         month = date_time %>% lubridate::month(), -->
-
-<!--                                                         month_name = month.abb[month] %>% factor(levels = c("Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct")),) -->
-
-<!-- #  -->
-
-<!-- # masterias_detections$time <- masterias_detections$date_time %>% as.Date("%H:%M", tz = "UTC") -->
-
-<!-- # # masterias_detections$season <- ifelse(month(masterias_detections$date_time) >=4 & month(masterias_detections$date_time) < 11, "summer", "winter") # only summer detections anyway -->
-
-<!-- # # include months -->
-
-<!-- # masterias_detections$month <- masterias_detections$date_time %>% lubridate::month() -->
-
-<!-- # masterias_detections$month_name <-  -->
-
-<!-- #  -->
-
-<!-- # # input sex and release_date_time into detections dataframe -->
-
-<!-- # masterias_detections$tag_serial_number <- masterias_detections$tag_serial_number %>% as.character() -->
-
-<!-- masterias_detections <- masterias_detections %>% left_join(masterias_info %>% dplyr::select(tag_serial_number, sex, release_dateyear), by = "tag_serial_number") -->
-
-<!-- # remove tags with only 1 detection  -->
-
-<!-- detection_summary <- masterias_detections %>% mutate(count = 1) %>% group_by(tag_serial_number) %>% summarise(n_detect = sum(count)) -->
-
-<!-- # input into masterias_info -->
-
-<!-- masterias_info <- masterias_info %>% left_join(detection_summary, by = "tag_serial_number") -->
-
-<!-- tag_serial_number_omit <- detection_summary %>% filter(n_detect == 1) %>% dplyr::select(tag_serial_number)  -->
-
-<!-- masterias_detections_clean <- masterias_detections %>% filter(!tag_serial_number %in% tag_serial_number_omit$tag_serial_number) -->
-
-<!-- # remove deployments outside of detection time frame -->
-
-<!-- deployments <- deployments %>% filter(recover_date_time <= masterias_detections_clean$date_time %>% max()) %>% filter(deploy_date_time > masterias_detections_clean$date_time %>% min()) -->
-
-<!-- summary_masterias_length <- masterias_info %>% group_by(sex) %>% summarise(mean_length = length1 %>% mean(), sd_length = length1 %>% sd()) -->
-
-<!-- rm(masterias_detections) -->
-
-<!-- # areas -->
-
-<!-- # make overview of stations where M. asterias was detected and assign area to is (WS1, WS2, BPNS) -->
-
-<!-- WS1_lon_threshold <- 3.38 -->
-
-<!-- WS2_lon_threshold <- 3.6 -->
-
-<!-- masterias_stations <-masterias_detections_clean %>% group_by(station_name) %>% summarise(deploy_latitude = mean(deploy_latitude), deploy_longitude = mean(deploy_longitude)) %>% mutate(area = ifelse(deploy_longitude < WS1_lon_threshold, "BPNS", ifelse(deploy_longitude < WS2_lon_threshold, "WS1", "WS2"))) -->
-
-<!-- # include areas in masterias_detections as well -->
-
-<!-- masterias_detections_clean <- masterias_detections_clean %>% left_join(masterias_stations %>% select(station_name, area), by = "station_name") -->
-
-<!-- # # areas work -->
-
-<!-- # col_fun_rd <- ggsci::pal_ucscgb()(3) -->
-
-<!-- # pal_rd <- leaflet::colorFactor(col_fun_rd, domain = masterias_stations$area) -->
-
-<!-- #  -->
-
-<!-- # map_base %>% addCircleMarkers(data = masterias_stations, -->
-
-<!-- #                               lat = ~deploy_latitude, -->
-
-<!-- #                               lng = ~deploy_longitude, -->
-
-<!-- #                               label = ~station_name,  -->
-
-<!-- #                               color = ~pal_rd(area)) -->
-
-<!-- rm(WS1_lon_threshold, WS2_lon_threshold) -->
-
-<!-- ``` -->
 
 ```{r read_DST}
 #| include: false
@@ -346,11 +187,12 @@ summary_masterias_length <- masterias_info %>% group_by(sex) %>% summarise(mean_
 
 <!-- Females had a TL of `r summary_masterias_length %>% filter(sex == "f") %>% dplyr::select(mean_length) %>% round(digits = 2) %>% pull()` cm ($\pm$ `r summary_masterias_length %>% filter(sex == "f") %>% dplyr::select(sd_length) %>% round(digits = 2) %>% pull()`, n = `r masterias_info %>% filter(sex == "f") %>% nrow()`). -->
 
+::: column-body-outset
 ## where we left off
 
 6 out of 8 recovered tags stopped recording 13-38 days after tagging, i.e. the animal died.
 
-::: panel-tabset
+::: {.panel-tabset}
 ### map
 
 ```{r shortterm_longterm_map}
@@ -364,6 +206,13 @@ cite_emodnet <- "<a href='https://emodnet.ec.europa.eu'>EMODnet</a>"
 
 col_fun <- ggsci::pal_locuszoom()(mpts_short$tag_serial_number %>% unique() %>% length())
 pal <- leaflet::colorFactor(col_fun, domain = mpts_short$tag_serial_number)
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = c(mpts_all$date_time %>% min(), masterias_detections_clean$date_time %>% max())) # mpts_all$date_time, masterias_detections_clean$date_time
+
+# mpts_short <- mpts_all %>% filter(!tag_serial_number == c("1293308", "1293321"))
+legend_dates = c("2018-08-01", "2018-11-01", "2019-02-01", "2019-05-01", "2019-08-01", "2019-11-01")
+
 
 map_dst <- leaflet::leaflet(
   # options = leaflet::leafletOptions(crs = leaflet::leafletCRS("L.CRS.EPSG4326"))
@@ -386,7 +235,7 @@ map_dst <- leaflet::leaflet(
     #### submarine cables ####
   addPolylines(data = cables,
                color = "blue",
-               opacity = 0.3,
+               opacity = 0.15,
                label = ~name,
                group = "wrecks, OWFs, cables") %>%
   #### windfarms ####
@@ -668,7 +517,7 @@ map_dst <- leaflet::leaflet(
   addCircleMarkers(data = mpts_all %>% filter(tag_serial_number == "1293308"),
                lat = ~detection_latitude,
                lng = ~detection_longitude,
-               fillColor = "#B5B5B5",
+               fillColor = ~pal_dst(date_time),
                radius = 5,
                weight = 0,
                fillOpacity = 0.8,
@@ -706,7 +555,7 @@ map_dst <- leaflet::leaflet(
   addCircleMarkers(data = mpts_all %>% filter(tag_serial_number == "1293321"),
                lat = ~detection_latitude,
                lng = ~detection_longitude,
-               fillColor = "#B5B5B5",
+               fillColor = ~pal_dst(date_time),
                radius = 5,
                weight = 0,
                fillOpacity = 0.8,
@@ -718,7 +567,11 @@ map_dst <- leaflet::leaflet(
                    baseGroups = c("EMODnet bathymetry", "satellite"),
                    overlayGroups = c("<span style=color:#D43F3A>tag 295</span>", "<span style=color:#EEA236>tag 304</span>", "<span style=color:#5CB85C>tag 310</span>", "<span style=color:#46B8DA>tag 312</span>", "<span style=color:#357EBD>tag 319</span>", "<span style=color:#9632B8>tag 322</span>", "<span style=color:#B5B5B5>tag 308 (female)</span>", "<span style=color:#B5B5B5>tag 321 (male)</span>","mean tracks", "mode tracks", "wrecks, OWFs, cables"),
                    options = layersControlOptions(collapsed = FALSE)) %>% 
-  hideGroup(c("<span style=color:#B5B5B5>tag 308 (female)</span>", "<span style=color:#B5B5B5>tag 321 (male)</span>", "mean tracks", "mode tracks"))
+  hideGroup(c("<span style=color:#B5B5B5>tag 308 (female)</span>", "<span style=color:#B5B5B5>tag 321 (male)</span>", "mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
 
 map_dst
 
@@ -767,12 +620,12 @@ temp_321 <- read_csv(paste0(dir_path, "/dst_data/02_pressure_temperature/ADST_lo
 ```{r wrangle_temppress}
 press_temp_295 <- create_press_temp(press_295, temp_295, "1293295", cutoff_days = 10)
 press_temp_304 <- create_press_temp(press_304, temp_304, "1293304", cutoff_days = 10)
-press_temp_308 <- create_press_temp(press_308, temp_308, "1293308", cutoff_days = 10)
+press_temp_308 <- create_press_temp(press_308, temp_308, "1293308", cutoff_days = 100)
 press_temp_310 <- create_press_temp(press_310, temp_310, "1293310", cutoff_days = 10)
 press_temp_312 <- create_press_temp(press_312, temp_312, "1293312", cutoff_days = 10)
 press_temp_319 <- create_press_temp(press_319, temp_319, "1293319", cutoff_days = 10)
 press_temp_322 <- create_press_temp(press_322, temp_322, "1293322", cutoff_days = 10)
-press_temp_321 <- create_press_temp(press_321, temp_321, "1293321", cutoff_days = 10)
+press_temp_321 <- create_press_temp(press_321, temp_321, "1293321", cutoff_days = 100)
 
 # remove unneeded files
 # rm(temp_295, temp_304, temp_310, temp_312, temp_319, temp_322,
@@ -781,7 +634,7 @@ press_temp_321 <- create_press_temp(press_321, temp_321, "1293321", cutoff_days 
 
 ## depth and temperature profiles
 
-::: panel-tabset
+::: {.panel-tabset}
 ### tag 295
 
 This shark (male) swam out to the OWF. Comment on ETN: Washed ashore around 27/09/2018 Found at Westenschouwen, tussen domeinen twee en t oude Vuurpad.
@@ -885,10 +738,10 @@ All of these 6 sharks drift at 20-35 m depth (they are dead?) before surfacing. 
 
 These are the profiles of the 2 tags that recorded for over a year.
 
-::: panel-tabset
 ### tag 308
 
-This shark (female) swam south into the English Channel.
+::: {.panel-tabset}
+This shark (female) swam south into the English Channel. The tag logged from 2018-08-02 until 2019-08-03. It does not seem like the animal died at the end of the logging period.
 
 ```{r depth_plot_308}
 #| include: true
@@ -904,7 +757,470 @@ This shark (female) swam south into the English Channel.
 
 Between October 2018 and April 2019, this female dove deeper than the tag's pressure sensor limit of \~75m. What could this mean?
 
+```{r basemapsnippets}
+
+# for emodnet layer
+emodnet_tiles <-"https://tiles.emodnet-bathymetry.eu/2020/baselayer/web_mercator/{z}/{x}/{y}.png"
+cite_emodnet <- "<a href='https://emodnet.ec.europa.eu'>EMODnet</a>"
+  attr(cite_emodnet, "class") <- c("html", "character")
+  
+
+basemap_snippets <- leaflet::leaflet(
+  # options = leaflet::leafletOptions(crs = leaflet::leafletCRS("L.CRS.EPSG4326"))
+                                  ) %>%
+  # ADD BASELAYERS ####
+  addProviderTiles("Esri.WorldImagery", options = providerTileOptions(opacity = 0.6), group = "satellite") %>%
+  leaflet::addTiles(urlTemplate = emodnet_tiles,
+      # options = leaflet::tileOptions(tms = FALSE),
+      attribution = cite_emodnet,
+      group = "EMODnet bathymetry") %>%
+  # SCALEBAR ####
+  addScaleBar(position = "topright", options = scaleBarOptions(maxWidth = 250, imperial = F)) %>%
+  setView(3.3, 51.5, zoom = 8) %>% 
+  #### BPNS ####
+  addPolygons(data = BPNS, color = "grey", 
+              weight = 2,
+              opacity = 1.0,
+              fillOpacity = 0, 
+              group = "Regions") %>%
+    #### submarine cables ####
+  addPolylines(data = cables,
+               color = "blue",
+               opacity = 0.15,
+               label = ~name,
+               group = "wrecks, OWFs, cables") %>%
+  #### windfarms ####
+  addPolygons(data = windfarms_polygons %>% filter(!status %in% c("Approved", "Planned")),
+              color = "red",
+              weight = 2,
+              opacity = 1,
+              fillOpacity = 0.3,
+              label = ~paste0("status: ", status, ", country: ", country, ", year: ", year),
+              group = "wrecks, OWFs, cables") %>%
+  #### shipwrecks ####
+  addCircleMarkers(data = wrecks,
+                 fillColor = "lightgreen",
+                 opacity = 0,
+                 fillOpacity = 1,
+                 radius = 3,
+                 label = ~paste0("Object: ", obj_type, ", sink year: ", sink_yr),
+                 group = "wrecks, OWFs, cables") %>%
+  addCircleMarkers(data = wrecks_BE %>% filter(Staat != "Geborgen"),
+                   lng = ~longitude,
+                   lat = ~latitude,
+                   fillColor = "lightgreen",
+                   opacity = 0,
+                   fillOpacity = 1,
+                   radius = 3,
+                   label = ~paste0("Object: ", Type, ", sink date: ", sink_yr, ", status: ", Staat, ", material: ", Materiaal, ", name: ", Naam),
+                   group = "wrecks, OWFs, cables") #%>%
+  
+basemap_snippets
+
+```
+
+#### WS - Channel
+
+```{r tag308WSChannel}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2018-08-02" %>% as.POSIXct(tz = "UTC"), "2018-10-09" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293308")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2018-08-03", "2018-08-15", "2018-08-30", "2018-09-15", "2018-09-30", "2018-10-09")
+
+map_308_1_WS_Channel <- basemap_snippets %>%
+  # add tag 308 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 308 (female)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 308 (female)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 308 (female)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_308_1_WS_Channel
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_308 %>% filter(date_time %>% between("2018-08-02" %>% as.POSIXct(tz = "UTC"), "2018-10-09" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+#### Winter (Channel)
+
+```{r tag308Channel}
+#| include: true
+data <- mpts_all %>% filter(date_time %>% between("2018-10-09" %>% as.POSIXct(tz = "UTC"), "2019-04-06" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293308")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2018-10-10", "2018-11-01", "2018-12-01", "2019-01-01", "2019-02-01", "2019-03-01", "2019-04-06")
+
+
+map_308_2_Channel <- basemap_snippets %>%
+  setView(lat = 50.21, lng = -1.197, zoom = 9) %>%
+  # add tag 308 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 308 (female)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 308 (female)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 308 (female)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_308_2_Channel
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_308 %>% filter(date_time %>% between("2018-10-09" %>% as.POSIXct(tz = "UTC"), "2019-04-06" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+#### Channel - WS
+
+```{r tag308ChannelWS}
+#| include: true
+data <- mpts_all %>% filter(date_time %>% between("2019-04-06" %>% as.POSIXct(tz = "UTC"), "2019-05-12" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293308")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-04-07", "2019-04-20", "2019-05-12")
+
+
+map_308_3_Channel_WS <- basemap_snippets %>%
+  setView(lat = 50.6, lng = 0.5, zoom = 8) %>%
+  # add tag 308 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 308 (female)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 308 (female)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 308 (female)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_308_3_Channel_WS
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_308 %>% filter(date_time %>% between("2019-04-06" %>% as.POSIXct(tz = "UTC"), "2019-05-12" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+#### Summer (WS)
+
+```{r tag308WS_1}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2019-05-13" %>% as.POSIXct(tz = "UTC"), "2019-06-12" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293308")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-05-14", "2019-05-20", "2019-05-30", "2019-06-12")
+
+
+map_308_4_WS_1 <- basemap_snippets %>%
+  addTiles(group = "OpenStreetMap") %>%
+  setView(lat = 51.45, lng = 3.5, zoom = 12) %>%
+  # add tag 308 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 308 (female)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 308 (female)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite", "OpenStreetMap"),
+                   overlayGroups = c("tag 308 (female)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_308_4_WS_1
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_308 %>% filter(date_time %>% between("2019-05-13" %>% as.POSIXct(tz = "UTC"), "2019-06-12" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+
+```{r tag308WS_2}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2019-06-12" %>% as.POSIXct(tz = "UTC"), "2019-08-03" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293308")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-06-13", "2019-07-01", "2019-07-15", "2019-08-03")
+
+
+map_308_5_WS_2 <- basemap_snippets %>%
+  addTiles(group = "OpenStreetMap") %>%
+  setView(lat = 51.45, lng = 3.5, zoom = 12) %>%
+  # add tag 308 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 308 (female)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 308 (female)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite", "OpenStreetMap"),
+                   overlayGroups = c("tag 308 (female)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_308_5_WS_2
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_308 %>% filter(date_time %>% between("2019-06-13" %>% as.POSIXct(tz = "UTC"), "2019-08-03" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+```
+:::
+
 ### tag 321
+
+::: {.panel-tabset}
 
 This shark (male) swam north into the Southern North Sea.
 
@@ -920,7 +1236,490 @@ This shark (male) swam north into the Southern North Sea.
 # plotly::ggplotly(plot)
 ```
 
-The male stayed at the surface much more compared to the female. What might he have done?
+The male stayed at the surface much more compared to the female. What might he have done? 
+
+#### WS - North Sea
+
+```{r tag321WSNorthSea}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2018-07-19" %>% as.POSIXct(tz = "UTC"), "2018-10-22" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293321")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2018-07-20", "2018-08-15", "2018-08-30", "2018-09-15", "2018-09-30", "2018-10-22")
+
+map_321_1_WS_NorthSea <- basemap_snippets %>%
+  # add tag 321 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 321 (male)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 321 (male)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 321 (male)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_321_1_WS_NorthSea
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_321 %>% filter(date_time %>% between("2018-07-19" %>% as.POSIXct(tz = "UTC"), "2018-10-22" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+#### North Sea
+
+```{r tag321NorthSea}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2018-10-23" %>% as.POSIXct(tz = "UTC"), "2019-04-23" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293321")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2018-10-24", "2018-12-01", "2019-01-01", "2019-02-01", "2019-03-01", "2019-04-22")
+
+map_321_2_NorthSea <- basemap_snippets %>%
+  # add tag 321 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 321 (male)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 321 (male)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 321 (male)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_321_2_NorthSea
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_321 %>% filter(date_time %>% between("2018-10-23" %>% as.POSIXct(tz = "UTC"), "2019-04-23" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+
+
+#### North Sea - BPNS
+
+```{r tag321NorthSeaBPNS}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2019-04-23" %>% as.POSIXct(tz = "UTC"), "2019-05-10" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293321")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-04-24", "2019-05-01", "2019-05-10")
+
+map_321_3_NorthSeaBPNS <- basemap_snippets %>%
+  # add tag 321 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 321 (male)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 321 (male)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 321 (male)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_321_3_NorthSeaBPNS
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_321 %>% filter(date_time %>% between("2019-04-23" %>% as.POSIXct(tz = "UTC"), "2019-05-10" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+
+
+#### BPNS
+
+```{r tag321BPNS}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2019-05-10" %>% as.POSIXct(tz = "UTC"), "2019-05-29" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293321")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-05-11", "2019-05-15", "2019-05-28")
+
+map_321_4_BPNS <- basemap_snippets %>%
+  # add tag 321 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 321 (male)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 321 (male)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 321 (male)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_321_4_BPNS
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_321 %>% filter(date_time %>% between("2019-05-10" %>% as.POSIXct(tz = "UTC"), "2019-05-28" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+
+
+
+#### BPNS - North Sea
+
+```{r tag321BPNSNorthSea}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2019-05-28" %>% as.POSIXct(tz = "UTC"), "2019-09-21" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293321")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-05-29", "2019-07-01", "2019-08-01", "2019-09-21")
+
+map_321_5_BPNSNorthSea <- basemap_snippets %>%
+  # add tag 321 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 321 (male)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 321 (male)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 321 (male)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_321_5_BPNSNorthSea
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_321 %>% filter(date_time %>% between("2019-05-28" %>% as.POSIXct(tz = "UTC"), "2019-09-21" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+#### North Sea
+
+```{r tag321NorthSea2}
+#| include: true
+
+data <- mpts_all %>% filter(date_time %>% between("2019-09-21" %>% as.POSIXct(tz = "UTC"), "2019-11-15" %>% as.POSIXct(tz = "UTC")),
+                    tag_serial_number == "1293321")
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = data$date_time) 
+
+legend_dates = c("2019-09-22", "2019-10-30", "2019-11-15")
+
+map_321_6_NorthSea <- basemap_snippets %>%
+  # add tag 321 ####
+    addPolylines(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "tag 321 (male)") %>%
+    addPolylines(data = data,
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = data,
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = data,
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "tag 321 (male)") %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("tag 321 (male)", "mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("mean tracks", "mode tracks")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+# map ####
+map_321_6_NorthSea
+
+# press and temp plot ####
+
+# plot <-
+  ggplot() +
+  geom_point(data = press_temp_321 %>% filter(date_time %>% between("2019-09-21" %>% as.POSIXct(tz = "UTC"), "2019-11-15" %>% as.POSIXct(tz = "UTC"))), aes(x = date_time, y = -depth_m, color = temp_c)) +
+  scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
+  labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
+  scale_colour_distiller(palette ="RdYlBu") +
+  theme_dark()
+# plotly::ggplotly(plot)
+
+```
+
+
 :::
 
 ## what I plan to do now
@@ -932,38 +1731,4 @@ The male stayed at the surface much more compared to the female. What might he h
 -   Griffiths et al., 2020 (<https://doi.org/10.1371/journal.pone.0239480>) did not use any fancy/complex Hidden Markov Models like Heerah but they calculated statistics such as the time spent at certain depth bins, vertical speed, seabed proximity, or vertical movement behaviour (based on a Wilcoxon test). This I would perform as a backup/complementary analysis with secondary priority, because I find the behavioural segmentation more interesting.
 
 -   Do you have any other analyses in mind that could shed light on behavioural patterns of the sharks?
-
-<!-- * For visualisation purposes, I want to unify the horizontal aspect (i.e. the output of the geolocation models) with the depth and temperature logs. -->
-
-<!-- ## What happened to tags 295, 304, 310, 312, 319 and 322 which ended up at the Offshore Wind Farm? {.tabset} -->
-
-<!-- ### Did they get preyed by a seal? -->
-
-<!-- ### Did they get fished? -->
-
-<!-- What about inline text commands, like an equivalent to `\newcommand{}` ? $$ -->
-
-<!-- \chi^2 -->
-
-<!-- $$ {#eq-chi} -->
-
-<!-- # Acoustic Data -->
-
-<!-- ## detections of animals per sex and per season -->
-
-<!-- *map with detections and toggle on/off, but not per year (as in last deliverable) but per sex and per season (quartile?)* -->
-
-<!-- ## Distance travelled per day (per sex and season) -->
-
-<!-- *from [https://jamesepaterson.github.io/jamespatersonblog/02_trackingworkshop_trajectories](james paterson's tutorial), see if there are differences* -->
 :::
-
-<!-- ```{r remove_large_files} -->
-
-<!-- # Remove large files -->
-
-<!-- # file.remove("tmp_map.html") -->
-
-<!-- unlink("./vertical_data_exploration/vertical_data_exploration_files", recursive = TRUE) -->
-
-<!-- ``` -->
