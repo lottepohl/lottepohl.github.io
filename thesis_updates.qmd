@@ -8,7 +8,7 @@ listing:
   # more YAML options: https://quarto.org/docs/websites/website-listings.html
 ---
 
-Hi there! Below you find some general updates. The documents on the bottom this page give a more detailed insight into my progress.
+Hi there! Below you find some general updates. The documents on the bottom of this page give a more detailed insight into my progress.
 
 ### Updates 27.2.23
 
@@ -26,7 +26,7 @@ Hi there! Below you find some general updates. The documents on the bottom this 
 
 2.  Are you planning to go tagging some time? I would really like to join.
 
-3.  Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g. \[Somayeh Dodge\[(https://somayehdodge.info)\] who has many impressive publications on the topic.
+3.  Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g. [Somayeh Dodge](https://somayehdodge.info) who has many impressive publications on the topic.
 
 ------------------------------------------------------------------------
 

@@ -645,6 +645,7 @@ map_station_month_sex_ind <- map_releases_stations %>%
   
   # SETTINGS
    addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
                    overlayGroups = c("<span style=color:#FF0000>April</span>",
                                      "<span style=color:#EEA236>May</span>",
                                      "<span style=color:#5CB85C>June</span>",
