@@ -9,8 +9,8 @@ output:
     theme: readable
     toc_float: true
     toc: true
-    number_sections: false
-    toc_depth: 2
+    # number_sections: false
+    # toc_depth: 2
 subtitle: analysis progress of the acoustic detections, master thesis Lotte Pohl, 27.2.2023
 editor_options:
   chunk_output_type: console

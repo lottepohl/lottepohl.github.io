@@ -140,6 +140,11 @@ ul.task-list li input[type="checkbox"] {
 </i> 
  <span class="menu-text"></span></a>
   </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/lotte-pohl-491315185/"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
 </ul>
               <div class="quarto-toggle-container">
                   <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
@@ -158,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#updates-27.2.23" id="toc-updates-27.2.23" class="nav-link active" data-scroll-target="#updates-27.2.23">Updates 27.2.23</a></li>
+  <li><a href="#updates-28.2.23" id="toc-updates-28.2.23" class="nav-link active" data-scroll-target="#updates-28.2.23">Updates 28.2.23</a></li>
   <li><a href="#update-documents" id="toc-update-documents" class="nav-link" data-scroll-target="#update-documents">Update Documents</a></li>
   </ul>
 </nav>
@@ -184,19 +189,57 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Hi there! Below you find some general updates. The documents on the bottom of this page give a more detailed insight into my progress.</p>
-<section id="updates-27.2.23" class="level3">
-<h3 class="anchored" data-anchor-id="updates-27.2.23">Updates 27.2.23</h3>
+<section id="updates-28.2.23" class="level3">
+<h3 class="anchored" data-anchor-id="updates-28.2.23">Updates 28.2.23</h3>
+<p>We should set a focus quickly. Ideas:</p>
+<ol type="1">
+<li>Pupping Grounds: Do <em>M. asterias</em> pup in the Western Scheldt?</li>
+</ol>
 <ul>
-<li>I plan to dedicate the month of March fully to data analysis
+<li>Investigate movement of tag 308 in summer 2019 (<strong>what analyses?</strong>)
 <ul>
-<li>Vertical Home range analysis / KUD (DST data)</li>
-<li>Horizontal Home range analysis / KUD (acoustic detection data)</li>
-<li>behavioural segmentation with STFT/FFT and HMM (DST data)</li>
-<li>actel and RSP analysis (acoustic detection data)</li>
+<li>two separate potential pupping events close to Dishoek: how to investigate this further?</li>
 </ul></li>
-<li>In April, I want to start writing and building the data visualisation/product, potentially using R <a href="https://pkgs.rstudio.com/flexdashboard/articles/examples.html">Flexdashboard</a> (similar to RShiny).</li>
-<li>In May, I would like to touch up on the analysis and the visualisation and concentrate on writing.</li>
+<li>Investigate fine-scale acoustic detections on females in the WS receiver arrays
+<ul>
+<li>can the same behaviour (north-south movement) be seen there?</li>
+</ul></li>
 </ul>
+<ol start="2" type="1">
+<li>Can low temperatures in winter explain the absence of <em>M. asterias</em> in the Western Scheldt?</li>
+</ol>
+<ul>
+<li>get high resolution temperature data for the WS</li>
+<li>does the temp fall &lt; 13 degree C (= temp threshold for <em>M. asterias</em>, Breve 2016)</li>
+<li>do a GLM, include e.g.&nbsp;salinity as well</li>
+<li><strong>where to get good data from?</strong></li>
+</ul>
+<ol start="3" type="1">
+<li>What is the speed that <em>M. asterias</em> migrate with to their overwintering spots? Does that differ between males and females?</li>
+</ol>
+<ul>
+<li>calculate max. distance covered, max. swim speed (can I do this with 1 location/day from the geolocation model?), migration duration</li>
+</ul>
+<ol start="4" type="1">
+<li>Are there diurnal patterns and (how) do they differ between different sections of their migratory cycles?</li>
+</ol>
+<ul>
+<li>FFT on the whole 1 year tracks of tag 308 and 321</li>
+<li>Segment the tracks in migration, overwintering, migration, summer and do spectral analysis on the segments and compare (?)</li>
+<li>cleverer method?</li>
+<li>hesitant to use the approach by Heerah, 2017 because HMMs overestimate the amount of behavioural states (in my first analysis I had 7-8 behavioural states)</li>
+<li>But they use STFT which puts a window on the signal, this could be good for me (will investigate if FFT or STFT is better)</li>
+</ul>
+<p>Aim 1: Resolve movement and behaviour in WS because in Scheldt Estuary, the focus was on the Oosterschelde so far.</p>
+<p>Aim 2: Describe migration better to inform models in the future, has never been done for this species</p>
+<!-- ### Updates 27.2.23 -->
+<!-- -   I plan to dedicate the month of March fully to data analysis -->
+<!--     -   Vertical Home range analysis / KUD (DST data) -->
+<!--     -   Horizontal Home range analysis / KUD (acoustic detection data) -->
+<!--     -   behavioural segmentation with STFT/FFT and HMM (DST data) -->
+<!--     -   actel and RSP analysis (acoustic detection data) -->
+<!-- -   In April, I want to start writing and building the data visualisation/product, potentially using R [Flexdashboard](https://pkgs.rstudio.com/flexdashboard/articles/examples.html) (similar to RShiny). -->
+<!-- -   In May, I would like to touch up on the analysis and the visualisation and concentrate on writing. -->
 <section id="central-questions" class="level4">
 <h4 class="anchored" data-anchor-id="central-questions">Central Questions</h4>
 <ol type="1">
@@ -216,7 +259,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1677496670057" data-listing-reading-time-sort="59.295">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1677667273981" data-listing-reading-time-sort="59.295">
 <div class="thumbnail">
 <p><a href="./thesis_docs/20230227_acoustic_data_month_sex/index.html"> <img src="./thesis_docs/20230227_acoustic_data_month_sex/image.PNG" class="thumnail-image"> </a></p>
 </div>
@@ -258,7 +301,7 @@ I ran an actel <code>residency</code> analysis, here are some first results. The
 <a href="./thesis_docs/20230227_actel_residency/index.html"> </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1677502266668" data-listing-reading-time-sort="92.405">
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1677667275499" data-listing-reading-time-sort="92.39">
 <div class="thumbnail">
 <p><a href="./thesis_docs/20230227_vertical_data_exploration/index.html"> <img src="./thesis_docs/20230227_vertical_data_exploration/image.PNG" class="thumnail-image"> </a></p>
 </div>
@@ -277,6 +320,31 @@ exploratory analysis progress of the DST data, master thesis Lotte Pohl, 27.2.20
 </div>
 <div class="metadata">
 <a href="./thesis_docs/20230227_vertical_data_exploration/index.html"> </a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1677666079830" data-listing-reading-time-sort="1.02">
+<div class="thumbnail">
+<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html"></a></p>
+</div>
+<div class="body">
+<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html">
+<h3 class="no-anchor listing-title">
+Pupping grounds
+</h3>
+<div class="listing-subtitle">
+master thesis Lotte Pohl, progress 3.3.2023
+</div>
+<div class="listing-description">
+Question 1: Can we see similar behaviour in acoustic detections of female sharks in close to Dishoek to what we saw in the DST data from shark 308?
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html"> </a>
 </div>
 </div>
 </div>

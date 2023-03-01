@@ -9,8 +9,8 @@ output:
     theme: readable
     toc_float: true
     toc: true
-    number_sections: false
-    toc_depth: 2
+    # number_sections: false
+    # toc_depth: 2
 subtitle: exploratory analysis progress of the DST data, master thesis Lotte Pohl, 27.2.2023
 editor_options:
   chunk_output_type: console
@@ -44,7 +44,6 @@ library(plotly)
 ```
 
 ```{r settings_knitting}
-
 rm(list = ls())
 dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
 path_envdata <- paste0(dir_path, "/03_data/environmental_layers/")
@@ -689,14 +688,14 @@ This shark (female) stayed in the Oosterscheldt.
 
 ```{r depth_plot_312}
 #| include: true
-# plot <- 
+plot <-
   ggplot() +
   geom_point(data = press_temp_312, aes(x = date_time, y = -depth_m, color = temp_c)) +
   scale_y_continuous(breaks = c(0, -10, -20, -30, -40, -50, -60, -70)) +
   labs(y = "Depth in m", x = "Date", color = "Temperature in C") +
   scale_colour_distiller(palette ="RdYlBu") +
   theme_dark()
-# plotly::ggplotly(plot)
+plotly::ggplotly(plot)
 ```
 
 ### tag 319

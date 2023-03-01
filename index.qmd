@@ -24,7 +24,7 @@ Welcome to my website, primarily there to share the latest updates about the exp
 
 ## Education
 
--   **Master of Science** in Marine Biological Resources at Ghent University (exptected July, 2023)
+-   **Master of Science** in Marine Biological Resources at Ghent University (expected July, 2023)
 
 -   **Bachelor of Science** in Biomimetics at Bremen University of Applied Sciences (2017 - 2021)
 
@@ -36,4 +36,4 @@ Welcome to my website, primarily there to share the latest updates about the exp
 
 ### CV
 
-Interested to know more about me? Check out my [Curriculum Vitae](files/LottePohl_CV_February2023.pdf) :)
+Want to know more about me? Check out my [Curriculum Vitae](files/LottePohl_CV_February2023.pdf) :)
