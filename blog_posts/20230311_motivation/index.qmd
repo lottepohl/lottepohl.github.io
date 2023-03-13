@@ -1,0 +1,39 @@
+---
+title: "Why am I starting a blog?"
+subtitle: "North Sea Diaries, pt. 0"
+# author: "Lotte Pohl"
+date: 03.10.2023
+description: |
+  I used to find the North Sea boring. Read about why this is starting to change.
+toc: true
+image: image.jpg
+editor_options: 
+  chunk_output_type: console
+---
+
+Growing up in Hamburg, Germany, the North Sea was all we talked about in (primary) school science lessons. What a unique ecosystem the Wadden Sea is, the amazing filtering capabilities of blue mussels, and how sandworms clean sand. TO be honest, I was pretty tired of it after the years. Everyone had been on a school trip to Sylt (a small German North Sea island) and did a walk across the mudflats where the guide swallowed a sandworm. I guess it's easy to be unimpressed by things that are directly at your doorstep. At least that was the case for me. I was inhaling books about sharks in tropical waters by the age of 14 and longed to see the Great Barrier Reef with my own eyes, but didn't care at all about the creatures inhabiting the sea closest to my home.
+
+Going further, my undergrad was not marine-related at all. Well, we in fact were supposed to do an excursion to Helgoland which all of us were super excited about for years, and then Covid hit and we sampled plants on meadows in southern Bremen...
+During my master's I have been out and about in southern Europe (France and Spain), but again didn't get in touch with the North Sea. 
+
+Now that I am working on a small shark in the North Sea for my Master Thesis, I find myself discovering the North Sea once more, and wow, it blows my mind! The diversity of animals that live here, species I really didn't expect, that I hadn't heard about in my early school years...
+
+> I am developing a new level of appreciation for the small and large creatures that inhabit the ocean that is so close to where I come from. I want to share that with you. 
+
+I truly hope that I can spark some thought-dead or even new fascination with the North Sea! 
+
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 1
+#| fig-height: 4
+#| column: body
+#| fig-subcap: 
+#| - ""
+# knitr::include_graphics("sea.jepg")
+knitr::include_graphics("media/sea.jpeg")
+```
+
+
+
+

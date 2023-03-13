@@ -1,5 +1,6 @@
 ---
-title: "Pupping grounds"
+title: "WS = Pupping Area?"
+description: "Investigation of acoustic detections of female sharks at the mouth of the Westerschelde during summer."
 # author: "Lotte Pohl"
 execute:
   echo: false
@@ -12,7 +13,8 @@ output:
     toc: true
     # number_sections: false
     # toc_depth: 2
-subtitle: master thesis Lotte Pohl, progress 3.3.2023
+# subtitle: master thesis Lotte Pohl, progress 3.3.2023
+date: 3.3.2023
 editor_options:
   chunk_output_type: console
 knitr:
@@ -25,6 +27,7 @@ format:
     fig-width: 8
     fig-height: 5
     toc: true
+image: image.PNG
 ---
 
 ```{r libraries}
@@ -77,7 +80,7 @@ source(paste0(dir_path, "/02_scripts/04_analyses/pupping_grounds/investigation_a
 I looked at all females detected in the WS and grouped their detection per station and day.
 
 ## Results
-### tags with many data
+### tags with much data
 
 :::{.panel-tabset}
 
@@ -135,7 +138,7 @@ map_acoustic_313_2020
 ```
 :::
 
-### tags with few data
+### tags with little data
 
 :::{.panel-tabset}
 

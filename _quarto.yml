@@ -10,6 +10,7 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - north_sea_blog.qmd
       - thesis_updates.qmd
       # - thesis_docs/acoustic_season_sex.qmd
       # - thesis_docs/vertical_data_exploration.qmd

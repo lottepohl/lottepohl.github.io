@@ -1,45 +1,284 @@
 ---
 title: "One Barnacle at a time"
-author: "Lotte Pohl"
+subtitle: "North Sea Diaries, pt. 1"
+# author: "Lotte Pohl"
+date: 03.11.2023
+description: |
+  What does a barnacle look like from the inside? This and other fascinating sea creatures we encountered on a day of boat work maintaining acoustic receivers for fish tagging research.
+toc: true
+image: image.jpeg
+editor_options: 
+  chunk_output_type: console
 ---
+
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 1
+#| fig-height: 4
+#| column: body
+#| fig-subcap: 
+#| - ""
+knitr::include_graphics("media/windfarm.jpg")
+```
+
 
 > It's always a pleasure to be out at sea, because you realise once again how many treasures and secrets it holds.
 
-## Sea Diaries, pt. 1
+# The sea campaign
 
-Last week, I was on a 3-day sea campaign with the 37 m *Simon Stevin*, a Belgian research vessel. We were out in the Belgian Part of the North Sea (BPNS), fun fact: this part of the North Sea is the most researched ocean part in the world [@reubens_2023].
+In the end of febuary 2023, I was on a 3-day sea campaign with the *Simon Stevin*, a  37 m long Belgian research vessel. We were out in the Belgian Part of the North Sea (BPNS). It's the part of the sea where Belgium can decide what's going on, basically. Fun fact: this part of the North Sea is the most researched ocean part in the world!
 
-On the boat were 19 people in total, amongst them 8 scientists. We were carrying out maintenance work that needs to be done regularly for the so-called *European Tracking Network* (ETN) to function. At one point in time, there are over 100 <!--# check exact # of stations --> acoustic receivers in the water, which listen to underwater sounds.
+Take a look at where we went with the boat on the map below: 
+<!-- [@reubens_2023] -->
 
-Underwater sound can have different frequencies (humans can, for example, hear frequencies between 20 Hz and 20 kHz), and the receivers that are in the water for ETN listen to frequencies of 69 <!--# ? check! --> kHz. That is, because the tags that were put inside different species of fish, emit pings with $\pm$ 69 kHz. They all differ slightly in frequency (they basically each have their own fingerprint frequency), by which the tag serial number, and with that the animal it's inside, can be identified.
+```{r setup}
+#| include: false
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
 
-The acoustic receivers are attached to so-called moorings/tripods, heavy metal frames that are lowered to the seafloor. Many organisms that are free-floating in the water and would like to settle somewhere, for example mussels and barnacles. And this metal frame, a hard surface on all the sand on the seafloor, is a welcome settling ground. Every 6 months or so, each tripod needs to be lifted onto the ship. Then, the data is downloaded from the receiver, and the batteries are exchanged. And, the most time consuming thing of all, the tripod gets cleaned. This was my pleasure on the campain!
+```{r load_data}
+#| include: false
+#| echo: false
 
-<!--# [image_acoustic_receiver_tripod.jpg] -->
+# libraries
+library(leaflet)
+library(dplyr)
+library(sf)
+library(tibble)
+library(leaflet.extras)
+library(leafem)
+
+# workspace
+dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+path_envdata <- paste0(dir_path, "/03_data/environmental_layers/")
+path_boundaries <- paste0(dir_path, "/03_data/marine_boundaries/")
+source(paste0(dir_path, "/02_scripts/02_load_data/load_environmental_data.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_human_activities.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_marine_boundaries.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_acoustic_detections.R"))
+
+# make stations and port df
+locations <- close_stations %>% filter(station_name %in% c("bpns-Gardencity", "bpns-BelwindReefballs", "bpns-BIRKENFELS", "bpns-CPowerReefballs", "bpns-LottoBuoy", "bpns-Nauticaena", "bpns-Faulbaums")) %>% dplyr::select(station_name, deploy_latitude, deploy_longitude) %>% tibble::add_row(.before = 1, station_name = "Ostend port", deploy_longitude = 2.929222, deploy_latitude = 51.231842)
+
+# for emodnet layer
+emodnet_tiles <-"https://tiles.emodnet-bathymetry.eu/2020/baselayer/web_mercator/{z}/{x}/{y}.png"
+cite_emodnet <- "<a href='https://emodnet.ec.europa.eu'>EMODnet</a>"
+  attr(cite_emodnet, "class") <- c("html", "character")
+```
+
+
+<!-- #| column: body-outset-left -->
+
+<!-- #| label: fig-cap-margin -->
+<!-- #| fig-cap: "This is approximately where we went. Many receivers are placed inside wind farms, because my colleagues study the behaviour of fish in the wind farms. Also, did you know that there were THAT many wrecks in the BPNS? :D" -->
+<!-- #| cap-location: margin -->
+
+```{r map}
+#| column: body
+#| fig-subcap: 
+#| - "This is approximately where we went. Many receivers are placed inside wind farms, because my colleagues study the behaviour of fish in the wind farms. Also, did you know that there were THAT many shipwrecks in the BPNS? Check it out!"
+#| echo: false
+#| include: true
+  
+
+map_campaign <- leaflet::leaflet(
+  # options = leaflet::leafletOptions(crs = leaflet::leafletCRS("L.CRS.EPSG4326"))
+                                  ) %>%
+  # ADD BASELAYERS ####
+  addProviderTiles("Esri.WorldImagery", options = providerTileOptions(opacity = 1), group = "satellite") %>%
+  addProviderTiles("OpenStreetMap.HOT", options = providerTileOptions(opacity = 1), group = "streetmap") %>%
+  addProviderTiles("Stamen.Watercolor", options = providerTileOptions(opacity = 1), group = "watercolor") %>%
+  # addProviderTiles(" Stamen.TerrainLabels", options = providerTileOptions(opacity = 1), group = "watercolor") %>%
+  leaflet::addTiles(urlTemplate = emodnet_tiles,
+      # options = leaflet::tileOptions(tms = FALSE),
+      attribution = cite_emodnet,
+      group = "EMODnet bathymetry") %>%
+  # SCALEBAR ####
+  addScaleBar(position = "topright", options = scaleBarOptions(maxWidth = 250, imperial = F)) %>%
+  setView(3.3, 51.5, zoom = 8) %>% 
+  #### BPNS ####
+  addPolygons(data = BPNS, color = "grey", 
+              weight = 4,
+              opacity = 1.0,
+              fillOpacity = 0, 
+              group = "Regions") %>%
+    #### submarine cables ####
+  addPolylines(data = cables,
+               color = "blue",
+               opacity = 0.15,
+               label = ~name,
+               group = "submarine cables") %>%
+  #### windfarms ####
+  addPolygons(data = windfarms_polygons %>% filter(!status %in% c("Approved", "Planned")),
+              color = "red",
+              weight = 2,
+              opacity = 1,
+              fillOpacity = 0.3,
+              label = ~paste0("status: ", status, ", country: ", country, ", year: ", year),
+              group = "offshore wind farms") %>%
+  #### shipwrecks ####
+  # addCircleMarkers(data = wrecks,
+  #                fillColor = "lightgreen",
+  #                opacity = 0,
+  #                fillOpacity = 1,
+  #                radius = 3,
+  #                label = ~paste0("Object: ", obj_type, ", sink year: ", sink_yr),
+  #                group = "shipwrecks") %>%
+  addCircleMarkers(data = wrecks_BE %>% filter(Staat != "Geborgen"),
+                   lng = ~longitude,
+                   lat = ~latitude,
+                   fillColor = "lightgreen",
+                   opacity = 0,
+                   fillOpacity = 1,
+                   radius = 3,
+                   label = ~paste0("Object: ", Type, ", sink date: ", sink_yr, ", status: ", Staat, ", material: ", Materiaal, ", name: ", Naam),
+                   group = "shipwrecks") %>%
+  addPolylines(data = locations,
+               lat = ~deploy_latitude,
+               lng = ~deploy_longitude,
+               color = "black",
+               weight = 2,
+               opacity = 0.5,
+               dashArray = "3,6",
+               highlightOptions = highlightOptions(bringToFront = T)
+               ) %>%
+  addCircleMarkers(data = locations,
+                   lat = ~deploy_latitude,
+                   lng = ~deploy_longitude,
+                   fillColor = "black",
+                   weight = 0,
+                   radius = 4,
+                   fillOpacity = 1,
+                   label = ~station_name
+                   # ,highlightOptions = highlightOptions(bringToFront = T)
+                   ) %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addFullscreenControl() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("streetmap", "watercolor","satellite", "EMODnet bathymetry"),
+                   overlayGroups = c("shipwrecks", "submarine cables", "offshore wind farms"),
+                   options = layersControlOptions(collapsed = FALSE)) %>%
+  addLegend(position = "bottomright",
+            opacity = 1,
+            # pal = pal,
+            colors = c("black", "grey"),
+            labels = c("acoustic receiver stations", "Belgian Part of the North Sea"),
+            # title = "Arrays"
+            ) %>%
+  hideGroup(c("offshore wind farms", "submarine cables", "shipwrecks"))
+  
+map_campaign
+```
+
+<!-- [This is approximately where we went. Many receivers are placed inside wind farms, because my colleagues study the behaviour of fish in the wind farms. Also, did you know that there were THAT many wrecks in the BPNS? :D]{.aside} -->
+
+## What were we doing?
+
+On the *Simon Stevin* were 19 people in total, among them 8 scientists. We were carrying out maintenance work that needs to be done regularly for the so-called *Permanent Belgian Acoustic Receiver Network* (PBARN) to function. At one point in time, there are over 100 <!--# check exact # of stations --> acoustic receivers in the water, which listen to underwater sounds.
+<!-- . They listen to sounds underwater that fall in a specific frequency range., which listen to underwater sounds. -->
+
+Underwater sound can have different frequencies (humans can, for example, hear frequencies between 20 Hz and 20 kHz), and the receivers that are in the water for the PBARN listen to frequencies of 69 <!--# ? check! --> kHz. That is, because the tags that were put inside different species of fish, emit acoustic pings with $\pm$ 69 kHz. They all differ slightly in frequency (they basically each have their own fingerprint frequency), by which the tag's serial number, and with that the animal it's inside, can be identified.
+
+The acoustic receivers are attached to so-called tripods, heavy metal frames that are lowered to the seafloor. Many organisms that are free-floating in the water would like to settle somewhere, for example mussels and barnacles. And this metal frame, a hard surface on all the sand on the seafloor, is a welcome settling ground. Every 6 months or so, each tripod needs to be lifted onto the ship. Then, the data is downloaded from the receiver, and the batteries are exchanged. And, the most time consuming thing of all, the tripod gets cleaned. This was my pleasure on the campaign!
+
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 3
+#| column: body #page
+#| fig-width: 6
+#| fig-subcap: 
+#| - "This is a tripod: The metal frame, on top of it an orange float, and in the centre of the float the acoustic receiver."
+#| - "The float is attached to the tripod with a release system that can be activated from afar, making the float surface."
+#| - "Float and tripod are connected by a rope, and the tripod is heaved up by the ship with the rope. The tripod is located with a hydrophone deployed from the small boat you can see here."
+knitr::include_graphics("media/tripod.jpeg")
+knitr::include_graphics("media/release.jpeg")
+knitr::include_graphics("media/boat.jpeg")
+
+```
 
 You basically need waterproof clothing, gloves, a life vest and a scraper to clean a tripod. And lots of muscles! Barnacles and other animals seem to love the tripods and they are very stubborn to get off, I can tell you that... At dinner on out first day at sea, I had scraped so much that I couldn't hold a fork anymore :D
 
-We had this very big metal frame of Clea, a PhD-student student in Hydroacoustics, which had a lot of surface and so a lot of cleaning/scraping work was required. It took 2-3 people around 2 hours to clean it all.
+
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 1
+#| fig-height: 4
+#| column: body #page
+#| fig-subcap: 
+#| - "My colleague [Arc'hantael Labriere](https://twitter.com/arc_labriere) and I busy cleaning a float, making it ready to be re-deployed. This took about 20 min for the two of us. Photo by the amazing [David Casals](https://twitter.com/BlanchCasals)."
+# knitr::include_graphics("media/biofouling.jpeg")
+knitr::include_graphics("media/cleaning.jpeg")
+```
+
+<!-- #| - "Look how much stuff there is on a tripod after it was deployed for a few months!" -->
+
+<!-- We had this very big metal frame of Clea, a PhD-student student in Hydroacoustics, which had a lot of surface and so a lot of cleaning/scraping work was required. It took 2-3 people around 2 hours to clean it all. -->
 
 <!--# [image metal frame before/after - maybe from last year?] -->
 
-But as you clean, you see so many small animals that *kreuchen und fleuchen* everywhere! And even small anemones we saw. And tons of crabs!
+But as you clean, you see so many small animals that move about everywhere! And even small anemones we saw. And tons of crabs!
 
-<!--# slide show of images: squid eggs (do I have a photo? someone else?), nudibranches, barnacles, amphipods -->
 
-### The beauty of barnacles
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 3
+#| fig-width: 6
+#| column: body #page
+#| fig-cap:
+#| - "There was so much life on the metal frames, truly astonighsing! Anemoned, starfish, and so many crabs. Most of the crabs were tiny swimming crabs :) But we also had several big ones!"
+knitr::include_graphics("media/anemone.jpeg")
+knitr::include_graphics("media/starfish.jpeg")
+knitr::include_graphics("media/crabs.jpeg")
+
+```
+
+# The beauty of barnacles
 
 Barnacles are quite fascinating animals I find. They settle down once in their lifetime and they have this super-hard-to-crack shell that we always see. You cannot really imagine that there's a living thing inside, right? Well, during the scraping we removed a lot of barnacles, so we could see the animals inside. I feel a bit bad for all the barnacle lives I ended during these days :(
 
-But I wanted to share how the animal inside looks like!
+But I wanted to share what the animal inside looks like!
 
-<!--# [image of barnacle inside] -->
 
-### Plenty of fish/other things in the North Sea
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 1
+#| fig-width: 8
+#| column: body #page
+#| fig-subcap: 
+#| - "In the centre of the open shell you can see the barnacle itself, with its tiny arms that it uses to filter small particles out of the water."
+knitr::include_graphics("media/barnacle.jpeg")
 
-We found astonishingly many different sea creatures! Nudibranchs, for example.\
-We were lucky to have a marine invertebrate nerd on board (thanks, Bram!) that just had a great sensitivity to spotting small, special animals on the tripods while cleaning them. Did you know there were nudibranches in the North Sea? Well, I have to admit, I didn't. They were so tiny and so adorable!!
+```
+
+# Plenty of fish and other things in the North Sea!
+
+We found astonishingly many different sea creatures! Nudibranches (sea slugs), for example. 
+We were lucky to have a marine invertebrate nerd on board (thanks, Bram!) that just had a great sensitivity to spotting small, special animals on the tripods while cleaning them. Did you know there were nudibranches in the North Sea? I have to admit, I didn't. They were so tiny and so adorable!!
 
 And the amount of different crab species we found....just mind-blowing. I challenge everyone to rethink when they say that the North Sea is boring! I didn't want to hear it at first either, but after literally playing with a bottlenose dolphin for an hour <!--# see this blog post --> I am slowly becoming an advocate for this muddy blue, cold water body.
 
-<!--# slide show of images: squid eggs (do I have a photo? someone else?), nudibranches, barnacles, amphipods -->
+
+```{r}
+#| eval: true
+#| echo: false
+#| layout-ncol: 2
+#| fig-width: 8
+#| column: body #page
+#| fig-subcap: 
+#| - "These pretty nudibranches can be found in the North Sea! They were super tiny, see we placed them in the bottom of a plastic bottle."
+#| - "Squid eggs were found attached to a tripod quite often."
+#| - "This young conger eel made its way into one of the tripods. We released it soon after. Adult conger eels can grow up to 3m!"
+#| - "I'd never seen a polychaete that big..."
+knitr::include_graphics("media/nudibranches.jpeg")
+knitr::include_graphics("media/squid_eggs.jpeg")
+knitr::include_graphics("media/conger_eel.jpeg")
+knitr::include_graphics("media/polychaete.jpeg")
+
+```
+

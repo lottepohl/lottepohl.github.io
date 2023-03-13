@@ -3,39 +3,39 @@ title: "Master Thesis Updates"
 listing: 
   contents: thesis_docs # all Quarto docs in this directory will be included on your listing page
   type: default # or `grid` or `table`; each type has its own set of yaml options to include
-  sort: "date asc" # can also sort on more than one field
+  sort: "date desc" # can also sort on more than one field
   categories: false # allows you to sort posts by assigned categories 
   # more YAML options: https://quarto.org/docs/websites/website-listings.html
 ---
 
 Hi there! Below you find some general updates. The documents on the bottom of this page give a more detailed insight into my progress.
 
-### Updates 28.2.23
+<!-- ### Updates 28.2.23 -->
 
-We should set a focus quickly. Ideas:
+<!-- We should set a focus quickly. Ideas: -->
 
-1. Pupping Grounds: Do *M. asterias* pup in the Western Scheldt?
-  - Investigate movement of tag 308 in summer 2019 (**what analyses?**)
-    - two separate potential pupping events close to Dishoek: how to investigate this further?
-  - Investigate fine-scale acoustic detections on females in the WS receiver arrays
-    - can the same behaviour (north-south movement) be seen there?
-2. Can low temperatures in winter explain the absence of *M. asterias* in the Western Scheldt?
-  - get high resolution temperature data for the WS
-  - does the temp fall < 13 degree C (= temp threshold for *M. asterias*, Breve 2016)
-  - do a GLM, include e.g. salinity as well
-  - **where to get good data from?**
-3. What is the speed that *M. asterias* migrate with to their overwintering spots? Does that differ between males and females?
-  - calculate max. distance covered, max. swim speed (can I do this with 1 location/day from the geolocation model?), migration duration
-4. Are there diurnal patterns and (how) do they differ between different sections of their migratory cycles?
-  - FFT on the whole 1 year tracks of tag 308 and 321
-  - Segment the tracks in migration, overwintering, migration, summer and do spectral analysis on the segments and compare (?)
-  - cleverer method?
-  - hesitant to use the approach by Heerah, 2017 because HMMs overestimate the amount of behavioural states (in my first analysis I had 7-8 behavioural states)
-  - But they use STFT which puts a window on the signal, this could be good for me (will investigate if FFT or STFT is better)
+<!-- 1. Pupping Grounds: Do *M. asterias* pup in the Western Scheldt? -->
+<!--   - Investigate movement of tag 308 in summer 2019 (**what analyses?**) -->
+<!--     - two separate potential pupping events close to Dishoek: how to investigate this further? -->
+<!--   - Investigate fine-scale acoustic detections on females in the WS receiver arrays -->
+<!--     - can the same behaviour (north-south movement) be seen there? -->
+<!-- 2. Can low temperatures in winter explain the absence of *M. asterias* in the Western Scheldt? -->
+<!--   - get high resolution temperature data for the WS -->
+<!--   - does the temp fall < 13 degree C (= temp threshold for *M. asterias*, Breve 2016) -->
+<!--   - do a GLM, include e.g. salinity as well -->
+<!--   - **where to get good data from?** -->
+<!-- 3. What is the speed that *M. asterias* migrate with to their overwintering spots? Does that differ between males and females? -->
+<!--   - calculate max. distance covered, max. swim speed (can I do this with 1 location/day from the geolocation model?), migration duration -->
+<!-- 4. Are there diurnal patterns and (how) do they differ between different sections of their migratory cycles? -->
+<!--   - FFT on the whole 1 year tracks of tag 308 and 321 -->
+<!--   - Segment the tracks in migration, overwintering, migration, summer and do spectral analysis on the segments and compare (?) -->
+<!--   - cleverer method? -->
+<!--   - hesitant to use the approach by Heerah, 2017 because HMMs overestimate the amount of behavioural states (in my first analysis I had 7-8 behavioural states) -->
+<!--   - But they use STFT which puts a window on the signal, this could be good for me (will investigate if FFT or STFT is better) -->
 
-Aim 1: Resolve movement and behaviour in WS because in Scheldt Estuary, the focus was on the Oosterschelde so far.
+<!-- Aim 1: Resolve movement and behaviour in WS because in Scheldt Estuary, the focus was on the Oosterschelde so far. -->
 
-Aim 2: Describe migration better to inform models in the future, has never been done for this species
+<!-- Aim 2: Describe migration better to inform models in the future, has never been done for this species -->
 
 <!-- ### Updates 27.2.23 -->
 
@@ -47,14 +47,14 @@ Aim 2: Describe migration better to inform models in the future, has never been 
 <!-- -   In April, I want to start writing and building the data visualisation/product, potentially using R [Flexdashboard](https://pkgs.rstudio.com/flexdashboard/articles/examples.html) (similar to RShiny). -->
 <!-- -   In May, I would like to touch up on the analysis and the visualisation and concentrate on writing. -->
 
-#### Central Questions
+<!-- #### Central Questions -->
 
-1.  What Journal would you aim for publishing the thesis paper in? We already have to write the thesis in the Journal's format. My idea would be the *Journal of Animal Biotelemetry* or *Animal Living Resources*, what do you think?
+<!-- 1.  What Journal would you aim for publishing the thesis paper in? We already have to write the thesis in the Journal's format. My idea would be the *Journal of Animal Biotelemetry* or *Animal Living Resources*, what do you think? -->
 
-2.  Are you planning to go tagging some time? I would really like to join.
+<!-- 2.  Are you planning to go tagging some time? I would really like to join. -->
 
-3.  Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g. [Somayeh Dodge](https://somayehdodge.info) who has many impressive publications on the topic.
+<!-- 3.  Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g. [Somayeh Dodge](https://somayehdodge.info) who has many impressive publications on the topic. -->
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
 ## Update Documents

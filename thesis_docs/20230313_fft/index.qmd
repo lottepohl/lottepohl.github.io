@@ -1,0 +1,567 @@
+---
+title: "Depth logs FFT"
+description: "FFT periodograms of all 8 recovered tags."
+# author: "Lotte Pohl"
+execute:
+  echo: false
+  include: false
+output:
+  html_document:
+    df_print: paged
+    theme: readable
+    # toc_float: true
+    toc: true
+    # number_sections: false
+    # toc_depth: 2
+date: 3.13.2023
+editor_options:
+  chunk_output_type: console
+knitr:
+  opts_chunk: 
+    collapse: true
+format: 
+  html:
+    page-layout: article
+    code-tools: true
+    fig-width: 8
+    fig-height: 5
+    toc: true
+image: image.PNG
+---
+
+
+```{r libraries}
+# WORKSPACE ####
+library(dplyr)
+library(lubridate)
+library(plotly)
+library(pracma)
+library(psdr)
+library(ggplot2)
+library(ggsci)
+library(sf)
+```
+
+```{r workspace}
+# rm(list = ls())
+
+dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+
+# source(paste0(dir_path, "/02_scripts/02_load_data/load_depth_temp_logs.R"))
+source(paste0(dir_path, "/02_scripts/04_analyses/FFT/calculate_fft_psd.R"))
+source(paste0(dir_path, "/02_scripts/05_plots_maps/plot_fft_periodogram.R"))
+source(paste0(dir_path, "/02_scripts/05_plots_maps/plot_dst_pressure_temp.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_dst_geolocation_output.R"))
+source(paste0(dir_path, "/02_scripts/05_plots_maps/base_map.R"))
+
+# todo: load 2 scripts (fft calc and periodogram plot) and do ggplotly() and maybe superpose them?
+```
+
+```{r depthlogs_summary}
+summary_depthlogs <- masterias_depth_temp %>% group_by(tag_serial_number) %>% summarise(start_date = lubridate::date(date_time %>% min()), end_date = lubridate::date(date_time %>% max()), log_time_d = difftime(end_date, start_date, units = "days") %>% as.numeric())
+```
+
+* I computed an FFT on the raw depth logs from the recovered DSTs and plotted periodograms. 
+
+* For most of the sharks, diurnal patterns with periods of 6, 12 and 24h are visible in the periodograms.
+
+* I have to still pre-process the data, i.e. smooth them (rolling mean?) and filter out the time after the sharks' deaths.
+
+
+# Sharks that stayed in the Oosterschelde
+
+::: {.column-page-inset}
+:::{.panel-tabset}
+
+## tag 295
+
+```{r tag295}
+#| include: true
+#| layout-ncol: 2
+plot_dst_295 #%>% ggplotly()
+pgram_295 #%>% ggplotly()
+```
+
+
+Tag 295 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293295") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293295") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293295") %>% dplyr::select(end_date) %>% pull()`.
+
+## tag 319
+
+```{r tag319}
+#| include: true
+#| layout-ncol: 2
+plot_dst_319 #%>% ggplotly()
+pgram_319 #%>% ggplotly()
+```
+
+
+Tag 319 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293319") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293319") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293319") %>% dplyr::select(end_date) %>% pull()`.
+
+
+## tag 322
+
+```{r tag322}
+#| include: true
+#| layout-ncol: 2
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+plot_dst_322 #%>% ggplotly()
+pgram_322 #%>% ggplotly()
+```
+
+
+Tag 322 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293322") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293322") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293322") %>% dplyr::select(end_date) %>% pull()`.
+
+:::
+:::
+
+# Sharks that swam to the OWF
+
+::: {.column-page-inset}
+:::{.panel-tabset}
+
+## tag 304
+
+```{r tag304}
+#| include: true
+#| layout-ncol: 2
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+plot_dst_304 #%>% ggplotly()
+pgram_304 #%>% ggplotly()
+```
+
+
+Tag 304 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293304") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293304") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293304") %>% dplyr::select(end_date) %>% pull()`.
+
+<!-- pgram_304 %>% ggploty() -->
+<!-- plot_dst_304 %>% ggplotly() -->
+
+
+## tag 310
+
+```{r tag310}
+#| include: true
+#| layout-ncol: 2
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+plot_dst_310 #%>% ggplotly()
+pgram_310 #%>% ggplotly()
+```
+
+
+Tag 310 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293310") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293310") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293310") %>% dplyr::select(end_date) %>% pull()`.
+
+<!-- pgram_310 %>% ggploty() -->
+<!-- plot_dst_310 %>% ggplotly() -->
+
+## tag 312
+
+```{r tag312}
+#| include: true
+#| layout-ncol: 2
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+plot_dst_312 #%>% ggplotly()
+pgram_312 #%>% ggplotly()
+```
+
+
+Tag 312 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293312") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293312") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293312") %>% dplyr::select(end_date) %>% pull()`.
+
+<!-- pgram_312 %>% ggploty() -->
+<!-- plot_dst_312 %>% ggplotly() -->
+
+:::
+:::
+
+# Sharks that logged for >1 year
+
+::: {.column-page-inset}
+:::{.panel-tabset}
+
+## tag 308
+
+```{r tag308}
+#| include: true
+#| layout-ncol: 2
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+plot_dst_308 #%>% ggplotly()
+pgram_308 #%>% ggplotly()
+```
+
+
+Tag 308 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293308") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293308") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293308") %>% dplyr::select(end_date) %>% pull()`.
+
+<!-- pgram_308 #%>% ggploty() -->
+<!-- plot_dst_308 #%>% ggplotly() -->
+
+## tag 321
+
+```{r tag321}
+#| include: true
+#| layout-ncol: 2
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+plot_dst_321 #%>% ggplotly()
+pgram_321 #%>% ggplotly()
+```
+
+
+Tag 321 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293321") %>% dplyr::select(log_time_d) %>% pull()` days between `r summary_depthlogs %>% filter(tag_serial_number == "1293321") %>% dplyr::select(start_date) %>% pull()` and `r summary_depthlogs %>% filter(tag_serial_number == "1293321") %>% dplyr::select(end_date) %>% pull()`.
+
+<!-- pgram_321 #%>% ggploty() -->
+<!-- plot_dst_321 #%>% ggplotly() -->
+
+:::
+:::
+
+# Map
+
+::: {.column-screen}
+
+```{r}
+#| include: true
+#| layout-ncol: 1
+##| fig-height: 4
+#| column: page
+#| fig-subcap: 
+#| - ""
+
+col_fun <- ggsci::pal_locuszoom()(masterias_depth_temp %>% filter(!tag_serial_number %in% tag_serial_number_omit) %>% unique() %>% length())
+pal <- leaflet::colorFactor(col_fun, domain = masterias_depth_temp %>% filter(!tag_serial_number %in% tag_serial_number_omit) %>% dplyr::select(tag_serial_number) %>% unique() %>% pull())
+
+# for the long term DST tracks
+pal_dst <- colorNumeric(palette = "magma", domain = c(masterias_dst_geolocation_output$date_time %>% min(), masterias_detections_clean$date_time %>% max())) # mpts_all$date_time, masterias_detections_clean$date_time
+
+# mpts_short <- mpts_all %>% filter(!tag_serial_number == c("1293308", "1293321"))
+legend_dates = c("2018-08-01", "2018-11-01", "2019-02-01", "2019-05-01", "2019-08-01", "2019-11-01")
+
+base_map %>% hideGroup(c("stations", "<span style=color:grey>released tags</span>", "areas")) %>%
+  # add tag 295 #####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293295"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#D43F3A>tag 295</span>") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293295"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293295"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293295"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#D43F3A>tag 295</span>") %>%
+  # add tag 304 #####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293304"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#EEA236>tag 304</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293304"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293304"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293304"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#EEA236>tag 304</span>") %>%
+  # add tag 310 #####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293310"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#5CB85C>tag 310</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293310"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293310"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293310"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#5CB85C>tag 310</span>") %>%
+  # add tag 312 #####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293312"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#46B8DA>tag 312</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293312"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293312"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293312"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#46B8DA>tag 312</span>") %>%
+  # add tag 319 #####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293319"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#357EBD>tag 319</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293319"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293319"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293319"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#357EBD>tag 319</span>") %>%
+  # add tag 322 #####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293322"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = ~pal(tag_serial_number),
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#9632B8>tag 322</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293322"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293322"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = ~pal(tag_serial_number),
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293322"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal(tag_serial_number),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#9632B8>tag 322</span>") %>%
+
+  # add tag 308 ####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293308"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#B5B5B5>tag 308 (female)</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293308"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293308"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293308"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#B5B5B5>tag 308 (female)</span>") %>%
+
+  # add tag 321 ####
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293321"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               color = "#B5B5B5",
+               weight = 3,
+               opacity = 0.6,
+               label = ~tag_serial_number,
+               group = "<span style=color:#B5B5B5>tag 321 (male)</span>") %>%
+    addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293321"),
+               lat = ~detection_latitude_mean,
+               lng = ~detection_longitude_mean,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.2,
+               opacity = 0.2,
+               dashArray = "5,5",
+               label = ~paste0(tag_serial_number, ", mean track"),
+               group = "mean tracks") %>%
+  addPolylines(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293321"),
+               lat = ~detection_latitude_mode,
+               lng = ~detection_longitude_mode,
+               color = "#B5B5B5",
+               weight = 1,
+               fillOpacity = 0.3,
+               dashArray = "1,7",
+               label = ~paste0(tag_serial_number, ", mode track"),
+               group = "mode tracks") %>%
+  addCircleMarkers(data = masterias_dst_geolocation_output %>% filter(tag_serial_number == "1293321"),
+               lat = ~detection_latitude,
+               lng = ~detection_longitude,
+               fillColor = ~pal_dst(date_time),
+               radius = 5,
+               weight = 0,
+               fillOpacity = 0.8,
+               label = ~paste0(format(date_time,"%F"), ", ", sex),
+               group = "<span style=color:#B5B5B5>tag 321 (male)</span>")  %>%
+  # ADD CONTROLS #####
+  leafem::addMouseCoordinates() %>%
+  addLayersControl(position = "topright",
+                   baseGroups = c("EMODnet bathymetry", "satellite"),
+                   overlayGroups = c("<span style=color:#D43F3A>tag 295</span>", "<span style=color:#EEA236>tag 304</span>", "<span style=color:#5CB85C>tag 310</span>", "<span style=color:#46B8DA>tag 312</span>", "<span style=color:#357EBD>tag 319</span>", "<span style=color:#9632B8>tag 322</span>", "<span style=color:#B5B5B5>tag 308 (female)</span>", "<span style=color:#B5B5B5>tag 321 (male)</span>","mean tracks", "mode tracks", "wrecks, OWFs, cables"),
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  hideGroup(c("<span style=color:#B5B5B5>tag 308 (female)</span>", "<span style=color:#B5B5B5>tag 321 (male)</span>", "mean tracks", "mode tracks", "wrecks, OWFs, cables")) %>%
+    addLegend(position = "topleft",
+            colors = legend_dates %>% as.POSIXct() %>% pal_dst(),
+            labels = legend_dates, opacity = 1,
+            title = "Dates")
+
+```
+
+
+:::

@@ -1,5 +1,6 @@
 ---
-title: "Acoustic detections per sex/month/area"
+title: "Acoustic detections"
+description: "Detections of females and males per sex, month and area around the mouth of the Westerschelde."
 execute:
   echo: false
   include: false
@@ -7,11 +8,12 @@ output:
   html_document:
     df_print: paged
     theme: readable
-    toc_float: true
+    # toc_float: true
     toc: true
     # number_sections: false
     # toc_depth: 2
-subtitle: analysis progress of the acoustic detections, master thesis Lotte Pohl, 27.2.2023
+subtitle: analysis progress of the acoustic detections
+date: 2.28.2023
 editor_options:
   chunk_output_type: console
 knitr:
@@ -65,7 +67,7 @@ source(paste0(dir_path, "/functions/functions_DST_presstemplogs.R"))
 source(paste0(dir_path, "/02_scripts/02_load_data/load_environmental_data.R"))
 source(paste0(dir_path, "/02_scripts/02_load_data/load_human_activities.R"))
 source(paste0(dir_path, "/02_scripts/02_load_data/load_marine_boundaries.R"))
-source(paste0(dir_path, "/02_scripts/03_wrangle_data/wrangle_acoustic_data.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_acoustic_detections.R"))
 ```
 
 ```{r setup}
@@ -83,12 +85,16 @@ min_lon <- 0.8
 max_lon <- 5
 max_lat <- 53
 min_lat <- 50
+
+summary_masterias_length <- masterias_info %>% group_by(sex) %>% summarise(mean_length = mean(length1), sd_length = sd(length1))
+
+abs_detect_ind <- masterias_detections_clean %>% group_by(sex) %>% mutate(count = 1) %>% summarise(abs_ind = tag_serial_number %>% unique %>% length(), abs_detect = sum(count))
 ```
 
 ::: column-body-outset
 ## some info
 
--   Two tag serial numbers where only detected once: `r tag_serial_number_omit[1,1]` and `r tag_serial_number_omit[2,1]`, and where thus omitted.
+-   Two tag serial numbers where only detected once: 1293301 and 1293296, and where thus omitted.
 
 -   Females had a mean TL of `r summary_masterias_length %>% filter(sex == "f") %>% dplyr::select(mean_length) %>% round(digits = 2) %>% pull()` cm ($\pm$ `r summary_masterias_length %>% filter(sex == "f") %>% dplyr::select(sd_length) %>% round(digits = 2) %>% pull()`, n = `r masterias_info %>% filter(sex == "f") %>% nrow()`), and males had a mean TL of `r summary_masterias_length %>% filter(sex == "m") %>% dplyr::select(mean_length) %>% round(digits = 2) %>% pull()` cm ($\pm$ `r summary_masterias_length %>% filter(sex == "m") %>% dplyr::select(sd_length) %>% round(digits = 2) %>% pull()`, n = `r masterias_info %>% filter(sex == "m") %>% nrow()`).
 
@@ -924,15 +930,15 @@ ggplot(masterias_RI_area) +
 
 <!-- ``` -->
 
-## what I plan to do now
+<!-- ## what I plan to do now -->
 
--   Home range analysis using horizontal Kernel Utilization Distribution (KUD).
+<!-- -   Home range analysis using horizontal Kernel Utilization Distribution (KUD). -->
 
--   what kind of statistics could I do on these data? I would like to see if there are significant differences between sex, area and month (could also be grouped into season, i.e. early/mid/late summer). I am not sure how to proceed, because we have different n for males and females, and overall a very small number of individuals. Do you have a statistical method in mind that could come in handy in this case?
+<!-- -   what kind of statistics could I do on these data? I would like to see if there are significant differences between sex, area and month (could also be grouped into season, i.e. early/mid/late summer). I am not sure how to proceed, because we have different n for males and females, and overall a very small number of individuals. Do you have a statistical method in mind that could come in handy in this case? -->
 
--   In her master thesis, Jolien Goossens did a Correspondance Analysis (CA) on her monthly Residency Indices. What do you think of doing that here as well?
+<!-- -   In her master thesis, Jolien Goossens did a Correspondance Analysis (CA) on her monthly Residency Indices. What do you think of doing that here as well? -->
 
--   I have started the `actel` analysis and want to also use the `RSP` package which does home range analysis. <!-- * I have wanted to analyse the dataset using the R packages *actel* [https://doi.org/10.1111/2041-210X.13503](https://doi.org/10.1111/2041-210X.13503) and *RSP* [https://doi.org/10.1111/2041-210X.13484](https://doi.org/10.1111/2041-210X.13484) for some weeks now. This would be my next step for the acoustic detection data. -->
+<!-- -   I have started the `actel` analysis and want to also use the `RSP` package which does home range analysis. <!-- * I have wanted to analyse the dataset using the R packages *actel* [https://doi.org/10.1111/2041-210X.13503](https://doi.org/10.1111/2041-210X.13503) and *RSP* [https://doi.org/10.1111/2041-210X.13484](https://doi.org/10.1111/2041-210X.13484) for some weeks now. This would be my next step for the acoustic detection data. --> -->
 
--   Overall, I would like to look at environmental variables (salinity, temperature, pH, ...) and try to infer correlations with shark detections with a GLMM. But that would be 2nd priority after the home range analysis.
-:::
+<!-- -   Overall, I would like to look at environmental variables (salinity, temperature, pH, ...) and try to infer correlations with shark detections with a GLMM. But that would be 2nd priority after the home range analysis. -->
+<!-- ::: -->

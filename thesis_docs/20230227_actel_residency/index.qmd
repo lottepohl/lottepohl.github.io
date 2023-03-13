@@ -1,5 +1,6 @@
 ---
 title: "actel analysis"
+description: "Standardised acoustic telemetry data analysis with the `actel` package in R."
 execute:
   echo: false
   include: false
@@ -7,11 +8,12 @@ output:
   html_document:
     df_print: paged
     theme: readable
-    toc_float: true
+    # toc_float: true
     toc: true
-    number_sections: false
-    toc_depth: 2
-subtitle: progress of the actel analysis, master thesis Lotte Pohl, 27.2.2023
+    # number_sections: false
+    # toc_depth: 2
+# subtitle: progress of the actel analysis, master thesis Lotte Pohl
+date: 2.27.2023
 editor_options:
   chunk_output_type: console
 knitr:
@@ -47,7 +49,7 @@ library(actel)
 
 ```{r settings_knitting}
 
-rm(list = ls())
+# rm(list = ls())
 dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
 path_envdata <- paste0(dir_path, "/03_data/environmental_layers/")
 path_boundaries <- paste0(dir_path, "/03_data/marine_boundaries/")
@@ -61,7 +63,7 @@ source(paste0(dir_path, "/functions/functions_DST_presstemplogs.R"))
 ```
 
 ```{r load_data}
-source(paste0(dir_path, "/02_scripts/01_save_data/save_actel_files.R"))
+# source(paste0(dir_path, "/02_scripts/01_save_data/save_actel_files.R"))
 source(paste0(dir_path, "/02_scripts/02_load_data/load_actel_files.R"))
 results_residency <- load_data(filestring = "results_residency", folder = paste0(dir_path, "/04_analysis_results/actel/residency/"))
 source(paste0(dir_path, "/02_scripts/02_load_data/load_environmental_data.R"))

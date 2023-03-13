@@ -73,9 +73,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -123,6 +123,10 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./north_sea_blog.html">
+ <span class="menu-text">North Sea Diaries</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="./thesis_updates.html" aria-current="page">
  <span class="menu-text">Master Thesis Updates</span></a>
   </li>  
@@ -163,8 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#updates-28.2.23" id="toc-updates-28.2.23" class="nav-link active" data-scroll-target="#updates-28.2.23">Updates 28.2.23</a></li>
-  <li><a href="#update-documents" id="toc-update-documents" class="nav-link" data-scroll-target="#update-documents">Update Documents</a></li>
+  <li><a href="#update-documents" id="toc-update-documents" class="nav-link active" data-scroll-target="#update-documents">Update Documents</a></li>
   </ul>
 </nav>
     </div>
@@ -189,49 +192,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Hi there! Below you find some general updates. The documents on the bottom of this page give a more detailed insight into my progress.</p>
-<section id="updates-28.2.23" class="level3">
-<h3 class="anchored" data-anchor-id="updates-28.2.23">Updates 28.2.23</h3>
-<p>We should set a focus quickly. Ideas:</p>
-<ol type="1">
-<li>Pupping Grounds: Do <em>M. asterias</em> pup in the Western Scheldt?</li>
-</ol>
-<ul>
-<li>Investigate movement of tag 308 in summer 2019 (<strong>what analyses?</strong>)
-<ul>
-<li>two separate potential pupping events close to Dishoek: how to investigate this further?</li>
-</ul></li>
-<li>Investigate fine-scale acoustic detections on females in the WS receiver arrays
-<ul>
-<li>can the same behaviour (north-south movement) be seen there?</li>
-</ul></li>
-</ul>
-<ol start="2" type="1">
-<li>Can low temperatures in winter explain the absence of <em>M. asterias</em> in the Western Scheldt?</li>
-</ol>
-<ul>
-<li>get high resolution temperature data for the WS</li>
-<li>does the temp fall &lt; 13 degree C (= temp threshold for <em>M. asterias</em>, Breve 2016)</li>
-<li>do a GLM, include e.g.&nbsp;salinity as well</li>
-<li><strong>where to get good data from?</strong></li>
-</ul>
-<ol start="3" type="1">
-<li>What is the speed that <em>M. asterias</em> migrate with to their overwintering spots? Does that differ between males and females?</li>
-</ol>
-<ul>
-<li>calculate max. distance covered, max. swim speed (can I do this with 1 location/day from the geolocation model?), migration duration</li>
-</ul>
-<ol start="4" type="1">
-<li>Are there diurnal patterns and (how) do they differ between different sections of their migratory cycles?</li>
-</ol>
-<ul>
-<li>FFT on the whole 1 year tracks of tag 308 and 321</li>
-<li>Segment the tracks in migration, overwintering, migration, summer and do spectral analysis on the segments and compare (?)</li>
-<li>cleverer method?</li>
-<li>hesitant to use the approach by Heerah, 2017 because HMMs overestimate the amount of behavioural states (in my first analysis I had 7-8 behavioural states)</li>
-<li>But they use STFT which puts a window on the signal, this could be good for me (will investigate if FFT or STFT is better)</li>
-</ul>
-<p>Aim 1: Resolve movement and behaviour in WS because in Scheldt Estuary, the focus was on the Oosterschelde so far.</p>
-<p>Aim 2: Describe migration better to inform models in the future, has never been done for this species</p>
+<!-- ### Updates 28.2.23 -->
+<!-- We should set a focus quickly. Ideas: -->
+<!-- 1. Pupping Grounds: Do *M. asterias* pup in the Western Scheldt? -->
+<!--   - Investigate movement of tag 308 in summer 2019 (**what analyses?**) -->
+<!--     - two separate potential pupping events close to Dishoek: how to investigate this further? -->
+<!--   - Investigate fine-scale acoustic detections on females in the WS receiver arrays -->
+<!--     - can the same behaviour (north-south movement) be seen there? -->
+<!-- 2. Can low temperatures in winter explain the absence of *M. asterias* in the Western Scheldt? -->
+<!--   - get high resolution temperature data for the WS -->
+<!--   - does the temp fall < 13 degree C (= temp threshold for *M. asterias*, Breve 2016) -->
+<!--   - do a GLM, include e.g. salinity as well -->
+<!--   - **where to get good data from?** -->
+<!-- 3. What is the speed that *M. asterias* migrate with to their overwintering spots? Does that differ between males and females? -->
+<!--   - calculate max. distance covered, max. swim speed (can I do this with 1 location/day from the geolocation model?), migration duration -->
+<!-- 4. Are there diurnal patterns and (how) do they differ between different sections of their migratory cycles? -->
+<!--   - FFT on the whole 1 year tracks of tag 308 and 321 -->
+<!--   - Segment the tracks in migration, overwintering, migration, summer and do spectral analysis on the segments and compare (?) -->
+<!--   - cleverer method? -->
+<!--   - hesitant to use the approach by Heerah, 2017 because HMMs overestimate the amount of behavioural states (in my first analysis I had 7-8 behavioural states) -->
+<!--   - But they use STFT which puts a window on the signal, this could be good for me (will investigate if FFT or STFT is better) -->
+<!-- Aim 1: Resolve movement and behaviour in WS because in Scheldt Estuary, the focus was on the Oosterschelde so far. -->
+<!-- Aim 2: Describe migration better to inform models in the future, has never been done for this species -->
 <!-- ### Updates 27.2.23 -->
 <!-- -   I plan to dedicate the month of March fully to data analysis -->
 <!--     -   Vertical Home range analysis / KUD (DST data) -->
@@ -240,16 +222,11 @@ ul.task-list li input[type="checkbox"] {
 <!--     -   actel and RSP analysis (acoustic detection data) -->
 <!-- -   In April, I want to start writing and building the data visualisation/product, potentially using R [Flexdashboard](https://pkgs.rstudio.com/flexdashboard/articles/examples.html) (similar to RShiny). -->
 <!-- -   In May, I would like to touch up on the analysis and the visualisation and concentrate on writing. -->
-<section id="central-questions" class="level4">
-<h4 class="anchored" data-anchor-id="central-questions">Central Questions</h4>
-<ol type="1">
-<li><p>What Journal would you aim for publishing the thesis paper in? We already have to write the thesis in the Journal’s format. My idea would be the <em>Journal of Animal Biotelemetry</em> or <em>Animal Living Resources</em>, what do you think?</p></li>
-<li><p>Are you planning to go tagging some time? I would really like to join.</p></li>
-<li><p>Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g.&nbsp;<a href="https://somayehdodge.info">Somayeh Dodge</a> who has many impressive publications on the topic.</p></li>
-</ol>
-<hr>
-</section>
-</section>
+<!-- #### Central Questions -->
+<!-- 1.  What Journal would you aim for publishing the thesis paper in? We already have to write the thesis in the Journal's format. My idea would be the *Journal of Animal Biotelemetry* or *Animal Living Resources*, what do you think? -->
+<!-- 2.  Are you planning to go tagging some time? I would really like to join. -->
+<!-- 3.  Do you know someone with expertise on visualising animal movement data in mind? Once I have a concept I would like to receive feedback from someone that specialises in this. Otherwise, I would try to contact e.g. [Somayeh Dodge](https://somayehdodge.info) who has many impressive publications on the topic. -->
+<!-- ------------------------------------------------------------------------ -->
 <section id="update-documents" class="level2">
 <h2 class="anchored" data-anchor-id="update-documents">Update Documents</h2>
 
@@ -259,28 +236,82 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1677667273981" data-listing-reading-time-sort="59.295">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1678662000000" data-listing-file-modified-sort="1678714479010" data-listing-reading-time-sort="28.535">
+<div class="thumbnail">
+<p><a href="./thesis_docs/20230313_fft/index.html"> <img src="./thesis_docs/20230313_fft/image.PNG" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./thesis_docs/20230313_fft/index.html">
+<h3 class="no-anchor listing-title">
+Depth logs FFT
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>FFT periodograms of all 8 recovered tags.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./thesis_docs/20230313_fft/index.html">
+<div class="listing-date">
+Mar 13, 2023
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1677798000000" data-listing-file-modified-sort="1678700828619" data-listing-reading-time-sort="0.95">
+<div class="thumbnail">
+<p><a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html"> <img src="./thesis_docs/20230228_focus1_puppinggrounds/image.PNG" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html">
+<h3 class="no-anchor listing-title">
+WS = Pupping Area?
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+<p>Investigation of acoustic detections of female sharks at the mouth of the Westerschelde during summer.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html">
+<div class="listing-date">
+Mar 3, 2023
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1677538800000" data-listing-file-modified-sort="1678701358622" data-listing-reading-time-sort="59.505">
 <div class="thumbnail">
 <p><a href="./thesis_docs/20230227_acoustic_data_month_sex/index.html"> <img src="./thesis_docs/20230227_acoustic_data_month_sex/image.PNG" class="thumnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./thesis_docs/20230227_acoustic_data_month_sex/index.html">
 <h3 class="no-anchor listing-title">
-Acoustic detections per sex/month/area
+Acoustic detections
 </h3>
 <div class="listing-subtitle">
-analysis progress of the acoustic detections, master thesis Lotte Pohl, 27.2.2023
+analysis progress of the acoustic detections
 </div>
 <div class="listing-description">
-Two tag serial numbers where only detected once: 1293296 and 1293301, and where thus omitted.
+<p>Detections of females and males per sex, month and area around the mouth of the Westerschelde.</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./thesis_docs/20230227_acoustic_data_month_sex/index.html"> </a>
+<a href="./thesis_docs/20230227_acoustic_data_month_sex/index.html">
+<div class="listing-date">
+Feb 28, 2023
+</div>
+</a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1677501216820" data-listing-reading-time-sort="6.1">
+<div class="quarto-post image-right" data-index="3" data-listing-date-sort="1677452400000" data-listing-file-modified-sort="1678701368544" data-listing-reading-time-sort="6.11">
 <div class="thumbnail">
 <p><a href="./thesis_docs/20230227_actel_residency/index.html"> <img src="./thesis_docs/20230227_actel_residency/image.PNG" class="thumnail-image"> </a></p>
 </div>
@@ -290,61 +321,44 @@ Two tag serial numbers where only detected once: 1293296 and 1293301, and where 
 actel analysis
 </h3>
 <div class="listing-subtitle">
-progress of the actel analysis, master thesis Lotte Pohl, 27.2.2023
+
 </div>
 <div class="listing-description">
-I ran an actel <code>residency</code> analysis, here are some first results. They give some insights into diel patterns of individuals, and residency times in different areas.
+<p>Standardised acoustic telemetry data analysis with the <code>actel</code> package in R.</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./thesis_docs/20230227_actel_residency/index.html"> </a>
+<a href="./thesis_docs/20230227_actel_residency/index.html">
+<div class="listing-date">
+Feb 27, 2023
+</div>
+</a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1677667275499" data-listing-reading-time-sort="92.39">
+<div class="quarto-post image-right" data-index="4" data-listing-date-sort="1677452400000" data-listing-file-modified-sort="1678701361062" data-listing-reading-time-sort="93.94">
 <div class="thumbnail">
 <p><a href="./thesis_docs/20230227_vertical_data_exploration/index.html"> <img src="./thesis_docs/20230227_vertical_data_exploration/image.PNG" class="thumnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./thesis_docs/20230227_vertical_data_exploration/index.html">
 <h3 class="no-anchor listing-title">
-DST data exploration
+Data Storage Tags
 </h3>
 <div class="listing-subtitle">
-exploratory analysis progress of the DST data, master thesis Lotte Pohl, 27.2.2023
-</div>
-<div class="listing-description">
-6 out of 8 recovered tags stopped recording 13-38 days after tagging, i.e.&nbsp;the animal died.
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./thesis_docs/20230227_vertical_data_exploration/index.html"> </a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1677669973915" data-listing-reading-time-sort="0.95">
-<div class="thumbnail">
-<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html">
-<div class="thumbnail-image">
 
 </div>
-</a><p><a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html"></a></p>
-</div>
-<div class="body">
-<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html">
-<h3 class="no-anchor listing-title">
-Pupping grounds
-</h3>
-<div class="listing-subtitle">
-master thesis Lotte Pohl, progress 3.3.2023
-</div>
 <div class="listing-description">
-Question 1: Can we see similar behaviour in acoustic detections of female sharks in close to Dishoek to what we saw in the DST data from shark 308?
+<p>Exploratory analysis progress of the DST data, i.e.&nbsp;the depth and temperature logs of the tags that were recovered.</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./thesis_docs/20230228_focus1_puppinggrounds/index.html"> </a>
+<a href="./thesis_docs/20230227_vertical_data_exploration/index.html">
+<div class="listing-date">
+Feb 27, 2023
+</div>
+</a>
 </div>
 </div>
 </div>
