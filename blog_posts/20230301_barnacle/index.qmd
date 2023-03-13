@@ -230,12 +230,14 @@ But as you clean, you see so many small animals that move about everywhere! And 
 #| fig-width: 6
 #| column: body #page
 #| fig-cap:
-#| - "There was so much life on the metal frames, truly astonighsing! Anemoned, starfish, and so many crabs. Most of the crabs were tiny swimming crabs :) But we also had several big ones!"
+#| - ""
 knitr::include_graphics("media/anemone.jpeg")
 knitr::include_graphics("media/starfish.jpeg")
 knitr::include_graphics("media/crabs.jpeg")
 
 ```
+
+There was so much life on the metal frames, truly astonighsing! Anemones, starfish, and so many crabs. Most of the crabs were tiny swimming crabs :) But we also had several big ones!
 
 # The beauty of barnacles
 
