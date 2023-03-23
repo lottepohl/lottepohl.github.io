@@ -59,16 +59,18 @@ dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
 # source(paste0(dir_path, "/02_scripts/05_plots_maps/plots_dst_pca_kmeans.R"))
 
 source(paste0(dir_path, "/02_scripts/05_plots_maps/plots_dst_summary.R"))
+source(paste0(dir_path, "/02_scripts/05_plots_maps/plots_dst_pca_kmeans.R"))
 source(paste0(dir_path, "/02_scripts/05_plots_maps/base_map.R"))
 source(paste0(dir_path, "/02_scripts/02_load_data/load_dst_geolocation_output.R"))
 ```
 
 <!-- :::{.column-page-inset} -->
-:::{.column-body}
 
 > Research Question: can migration and residency behaviour be inferred from the depth log?
 
 # vertical space use
+
+<!-- :::{.column-body} -->
 
 <!-- **Question**: when did the sharks start to migrate? -->
 
@@ -126,6 +128,8 @@ p_321_depth_median_range_change_ribbon %>% plotly::ggplotly() %>%
 * reverse DVM (rDVM): Depth during night significantly deeper than during day.
 * no DVM (nDVM): No significant difference between depth during night and day.
 
+There does not seem to be a pattern between potential activity (migrating/residing) and Daily Vertical Migration behaviour.
+
 :::{.panel-tabset}
 
 ### female
@@ -161,24 +165,30 @@ p_tag321_DVM_weekly %>% plotly::ggplotly() %>%
 
 :::
 
-## Vertical speed
+## Vertical speed vs depth
 
 Vertical speed = the absolute difference between two subsequent measurements divided by the number of samples taken per minute (Units = m/min).
+
+* There is a bimodal distribution in monthly vertical speed, no matter the depth that was swum in and the potential activity (migrating/resting).
 
 :::{.panel-tabset}
 
 ### female
 
 ```{r}
-#| layout-ncol: 1
+#| layout-ncol: 2
 ##| fig-height: 4
 #| column: page
 #| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 308.
 #| - ""
-p_308_vertical_speed %>% plotly::ggplotly() %>% 
-  layout(legend = list(orientation = "h",
-                              x = 0.5, y = -0.5,
-                              xanchor = "center", yanchor = "top"))
+# p_308_vertical_speed %>% plotly::ggplotly() %>% 
+#   layout(legend = list(orientation = "h",
+#                               x = 0.5, y = -0.5,
+#                               xanchor = "center", yanchor = "top"))
+
+p_308_vertical_speed_splitviolin
+
+p_308_depth_month_splitviolin
 
 ```
 
@@ -186,18 +196,20 @@ p_308_vertical_speed %>% plotly::ggplotly() %>%
 ### male
 
 ```{r}
-#| layout-ncol: 1
+#| layout-ncol: 2
 ##| fig-height: 4
 #| column: page
 #| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 321.
 #| - ""
-p_321_vertical_speed %>% plotly::ggplotly() %>% 
-  layout(legend = list(orientation = "h",
-                              x = 0.5, y = -0.5,
-                              xanchor = "center", yanchor = "top"))
+# p_321_vertical_speed %>% plotly::ggplotly() %>% 
+#   layout(legend = list(orientation = "h",
+#                               x = 0.5, y = -0.5,
+#                               xanchor = "center", yanchor = "top"))
+p_321_vertical_speed_splitviolin
+
+p_321_depth_month_splitviolin
 ```
 
-:::
 :::
 
 # Potential Migration months 
@@ -206,7 +218,7 @@ p_321_vertical_speed %>% plotly::ggplotly() %>%
 
 ### female
 
-:::{.panel-tabset}
+<!-- :::{.panel-tabset} -->
 
 #### Sep-Oct
 
@@ -218,24 +230,30 @@ The interesting period is between Sep 20 and October 15.
 #| column: page
 #| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 308.
 #| - ""
-# p_308_vertical_speed %>% plotly::ggplotly() %>% 
-#   layout(legend = list(orientation = "h",
-#                               x = 0.5, y = -0.5,
-#                               xanchor = "center", yanchor = "top"))
+p_308_mig1_depth_DVM %>% plotly::ggplotly() %>% 
+  layout(legend = list(orientation = "h",
+                              x = 0.5, y = -0.5,
+                              xanchor = "center", yanchor = "top"))
 
 ```
 
-:::
+<!-- ::: -->
 
 ### male
 
+#### Oct-Nov
 ```{r}
-#| layout-ncol: 1
+#| layout-ncol: 2
 ##| fig-height: 4
 #| column: page
 #| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 321.
 #| - ""
-p_321_vertical_speed %>% plotly::ggplotly() %>% 
+p_321_mig1_depth_DVM %>% plotly::ggplotly() %>% 
+  layout(legend = list(orientation = "h",
+                              x = 0.5, y = -0.5,
+                              xanchor = "center", yanchor = "top"))
+
+p_321_mig2_depth_DVM %>% plotly::ggplotly() %>% 
   layout(legend = list(orientation = "h",
                               x = 0.5, y = -0.5,
                               xanchor = "center", yanchor = "top"))
@@ -249,7 +267,7 @@ p_321_vertical_speed %>% plotly::ggplotly() %>%
 
 * Overall, the female shark (tag 308) travelled `r tag_308_totalhordistance %>% round(digits = 2)` km and the male shark (tag 321) travelled `r tag_321_totalhordistance %>% round(digits = 2)` km.
 
-* The horizontal distance covered by the female shark (tag 308) is `r total_horizontal_distance %>% filter(tag_serial_number == "1293308") %>% dplyr::select(total_horizontal_distance_km) %>% pull()` km, and for the male shark (tag 321) it is `r total_horizontal_distance %>% filter(tag_serial_number == "1293321") %>% dplyr::select(total_horizontal_distance_km) %>% pull()`
+* The horizontal distance covered by the female shark (tag 308) is `r total_horizontal_distance %>% filter(tag_serial_number == "1293308") %>% dplyr::select(total_horizontal_distance_km) %>% pull() %>% round(digits = 2)` km, and for the male shark (tag 321) it is `r total_horizontal_distance %>% filter(tag_serial_number == "1293321") %>% dplyr::select(total_horizontal_distance_km) %>% pull() %>% round(digits = 2)`.
 
 
 *You can select a zoom window, and select/deselect data by clicking on then on the legend.*
@@ -266,14 +284,50 @@ p_308_321_hordistance %>% plotly::ggplotly() %>%
                               xanchor = "center", yanchor = "top"))
 ```
 
-* the largest horizontal distance travelled per day is 30 km.
+* the largest horizontal distance travelled per day is roughly 30 km.
 
-* the overall horizontal distance travelled
 
-<!-- # PCA -->
+# k means clustering
 
-<!-- # k means clustering  -->
+> Can unsupervised learning distinguish migrating and resident behaviour?
 
+* PCA on daily dst summary statistics (median depth, depth range, vertical speed, ...), retain the forst 2 PC axes.
+
+* the k means clustering I did can distinguish between summer and winter residential behaviour, but is not able to differentiate the migrating periods in between.
+
+
+:::{.panel-tabset}
+
+## female
+
+```{r}
+#| layout-ncol: 1
+##| fig-height: 4
+#| column: page
+#| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 321.
+#| - ""
+plot_f_308_dailydepthmedian_cluster %>% plotly::ggplotly() %>% 
+  layout(legend = list(orientation = "h",
+                              x = 0.5, y = -0.5,
+                              xanchor = "center", yanchor = "top"))
+```
+
+## male
+
+```{r}
+#| layout-ncol: 1
+##| fig-height: 4
+#| column: page
+#| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 321.
+#| - ""
+plot_m_321_dailydepthmedian_cluster %>% plotly::ggplotly() %>% 
+  layout(legend = list(orientation = "h",
+                              x = 0.5, y = -0.5,
+                              xanchor = "center", yanchor = "top"))
+```
+
+
+:::
 
 # Map
 

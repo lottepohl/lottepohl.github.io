@@ -88,7 +88,28 @@
     "href": "thesis_docs/20230320_migration_analyses/index.html",
     "title": "DST migration analyses",
     "section": "",
-    "text": "Research Question: can migration and residency behaviour be inferred from the depth log?\n\n\n\n\n\n\n\nfemalemale\n\n\n\n\n\n\n\n\n\n\n\nThere are peaks in the change of daily median in September, December (this is influenced by the non-accurate depth measurements, though), March and May.\nThere seems to be no clearly visible pattern in daily vertical migration, comparing between potentially migrating and residential periods.\nThese months I will have a further look into. \n\n\n\n\n\n\n\n\n\n\n\n\nHere we see peaks in the change of daily median in October 2018, May 2019, August 2019 and October 2019.\nBoth in October 2018 and 2019, we see reverse Diel Vertical Migration.\n\n\n\n\nNote: a rolling mean over 3 days was applied to smooth the data.\n\n\n\n\nDiel Vertical Migration (DVM): Depth during day significantly deeper than during night.\nreverse DVM (rDVM): Depth during night significantly deeper than during day.\nno DVM (nDVM): No significant difference between depth during night and day.\n\n\nfemalemale\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVertical speed = the absolute difference between two subsequent measurements divided by the number of samples taken per minute (Units = m/min).\n\nfemalemale"
+    "text": "Research Question: can migration and residency behaviour be inferred from the depth log?"
+  },
+  {
+    "objectID": "thesis_docs/20230320_migration_analyses/index.html#depth-median-min-and-max",
+    "href": "thesis_docs/20230320_migration_analyses/index.html#depth-median-min-and-max",
+    "title": "DST migration analyses",
+    "section": "Depth median, min and max",
+    "text": "Depth median, min and max\n\nfemalemale\n\n\n\n\n\n\n\n\n\n\n\nThere are peaks in the change of daily median in September, December (this is influenced by the non-accurate depth measurements, though), March and May.\nThere seems to be no clearly visible pattern in daily vertical migration, comparing between potentially migrating and residential periods.\nThese months I will have a further look into. \n\n\n\n\n\n\n\n\n\n\n\n\nHere we see peaks in the change of daily median in October 2018, May 2019, August 2019 and October 2019.\nBoth in October 2018 and 2019, we see reverse Diel Vertical Migration.\n\n\n\n\nNote: a rolling mean over 3 days was applied to smooth the data."
+  },
+  {
+    "objectID": "thesis_docs/20230320_migration_analyses/index.html#daily-vertical-migration",
+    "href": "thesis_docs/20230320_migration_analyses/index.html#daily-vertical-migration",
+    "title": "DST migration analyses",
+    "section": "Daily Vertical Migration",
+    "text": "Daily Vertical Migration\n\nDiel Vertical Migration (DVM): Depth during day significantly deeper than during night.\nreverse DVM (rDVM): Depth during night significantly deeper than during day.\nno DVM (nDVM): No significant difference between depth during night and day.\n\nThere does not seem to be a pattern between potential activity (migrating/residing) and Daily Vertical Migration behaviour.\n\nfemalemale"
+  },
+  {
+    "objectID": "thesis_docs/20230320_migration_analyses/index.html#vertical-speed-vs-depth",
+    "href": "thesis_docs/20230320_migration_analyses/index.html#vertical-speed-vs-depth",
+    "title": "DST migration analyses",
+    "section": "Vertical speed vs depth",
+    "text": "Vertical speed vs depth\nVertical speed = the absolute difference between two subsequent measurements divided by the number of samples taken per minute (Units = m/min).\n\nThere is a bimodal distribution in monthly vertical speed, no matter the depth that was swum in and the potential activity (migrating/resting).\n\n\nfemalemale"
   },
   {
     "objectID": "thesis_docs/20230322_dst_all_daily/index.html",
