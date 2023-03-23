@@ -78,7 +78,7 @@ summary_depthlogs <- masterias_depth_temp %>% group_by(tag_serial_number) %>% su
 ```{r tag295}
 #| include: true
 #| layout-ncol: 2
-plot_dst_295 #%>% ggplotly()
+plot_dst_295 # %>% # ggplotly()
 pgram_295 #%>% ggplotly()
 ```
 
@@ -170,7 +170,7 @@ Tag 310 logged for `r summary_depthlogs %>% filter(tag_serial_number == "1293310
 #| column: page
 #| fig-subcap: 
 #| - ""
-plot_dst_312 #%>% ggplotly()
+plot_dst_312 %>% ggplotly()
 pgram_312 #%>% ggplotly()
 ```
 
