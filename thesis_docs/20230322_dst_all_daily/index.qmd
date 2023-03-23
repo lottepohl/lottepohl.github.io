@@ -1,0 +1,95 @@
+---
+title: "daily vertical patterns of DSTs"
+description: "daily vertical habitat use"
+# author: "Lotte Pohl"
+execute:
+  echo: false
+  include: true
+output:
+  html_document:
+    df_print: paged
+    theme: readable
+    # toc_float: true
+    toc: true
+    # number_sections: false
+    # toc_depth: 2
+date: 3.20.2023
+editor_options:
+  chunk_output_type: console
+knitr:
+  opts_chunk: 
+    collapse: true
+format: 
+  html:
+    page-layout: article
+    code-tools: true
+    fig-width: 8
+    fig-height: 5
+    toc: true
+image: image.PNG
+---
+
+```{r libraries}
+#| include: false
+library(tidyverse)
+library(dplyr)
+library(plotly)
+library(ggplot2)
+library(sf)
+library(suncalc)
+library(dplyr)
+library(lubridate)
+library(pracma)
+library(psdr)
+library(StreamMetabolism)
+```
+
+
+```{r workspace}
+#| include: false
+# rm(list = ls())
+
+dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+
+# source(paste0(dir_path, "/02_scripts/02_load_data/load_depth_temp_logs.R"))
+# source(paste0(dir_path, "/02_scripts/04_analyses/FFT/calculate_fft_psd.R"))
+# source(paste0(dir_path, "/02_scripts/05_plots_maps/plot_fft_periodogram.R"))
+# source(paste0(dir_path, "/02_scripts/05_plots_maps/plot_dst_pressure_temp.R"))
+source(paste0(dir_path, "/02_scripts/05_plots_maps/plots_dst_summary.R"))
+# source(paste0(dir_path, "/02_scripts/05_plots_maps/plots_dst_pca_kmeans.R"))
+source(paste0(dir_path, "/02_scripts/05_plots_maps/base_map.R"))
+source(paste0(dir_path, "/02_scripts/02_load_data/load_dst_geolocation_output.R"))
+```
+
+- all three dst tags staying in the Oosterschelde and dying there were tagged in 2018.
+- all three dst tags swimming to the OWF were tagged in 2019.
+
+:::{.column-body}
+
+```{r}
+#| layout-ncol: 1
+##| fig-height: 4
+#| column: page
+#| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 321.
+#| - ""
+p_summer_depth_per_hour %>% plotly::ggplotly() %>% 
+  layout(legend = list(orientation = "h",
+                              x = 0.5, y = -0.5,
+                              xanchor = "center", yanchor = "top"))
+```
+
+
+```{r}
+#| layout-ncol: 1
+##| fig-height: 4
+#| column: page
+#| fig-cap: Ribbon plot showing the daily median, minimum and maximum depth of tag 321.
+#| - ""
+p_summer_dvm_daily %>% plotly::ggplotly() %>% 
+  layout(legend = list(orientation = "h",
+                              x = 0.5, y = -0.5,
+                              xanchor = "center", yanchor = "top"))
+```
+
+
+:::
