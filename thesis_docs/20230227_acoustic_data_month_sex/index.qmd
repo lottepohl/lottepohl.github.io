@@ -52,7 +52,7 @@ library(car)
 ```
 
 ```{r settings_knitting}
-# rm(list = ls())
+
 dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
 path_envdata <- paste0(dir_path, "/03_data/environmental_layers/")
 path_boundaries <- paste0(dir_path, "/03_data/marine_boundaries/")
@@ -91,8 +91,7 @@ summary_masterias_length <- masterias_info %>% group_by(sex) %>% summarise(mean_
 abs_detect_ind <- masterias_detections_clean %>% group_by(sex) %>% mutate(count = 1) %>% summarise(abs_ind = tag_serial_number %>% unique %>% length(), abs_detect = sum(count))
 ```
 
-:::{.column-body-outset}
-
+::: column-body-outset
 ## some info
 
 -   Two tag serial numbers where only detected once: 1293301 and 1293296, and where thus omitted.
@@ -731,7 +730,7 @@ All detections, the colour denotes the area and the symbol denotes the sex.
 #| include: true
 ggplot(masterias_detections_clean) +
   geom_point(mapping = aes(x = date_time, y = tag_serial_number, color = area, pch = sex),
-             size = 5) + #
+             size = 5) +
   ggsci::scale_color_jco() +
   labs(x = "Date", y = "Tag serial number", color = "Area", pch = "Sex") +
   theme_minimal()
@@ -942,5 +941,4 @@ ggplot(masterias_RI_area) +
 <!-- -   I have started the `actel` analysis and want to also use the `RSP` package which does home range analysis. <!-- * I have wanted to analyse the dataset using the R packages *actel* [https://doi.org/10.1111/2041-210X.13503](https://doi.org/10.1111/2041-210X.13503) and *RSP* [https://doi.org/10.1111/2041-210X.13484](https://doi.org/10.1111/2041-210X.13484) for some weeks now. This would be my next step for the acoustic detection data. --> -->
 
 <!-- -   Overall, I would like to look at environmental variables (salinity, temperature, pH, ...) and try to infer correlations with shark detections with a GLMM. But that would be 2nd priority after the home range analysis. -->
-
-:::
+<!-- ::: -->

@@ -28,7 +28,6 @@ format:
     fig-height: 5
     toc: true
 image: image.PNG
-draft: true
 ---
 
 ```{r libraries}

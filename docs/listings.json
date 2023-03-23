@@ -2,17 +2,15 @@
   {
     "listing": "/north_sea_blog.html",
     "items": [
-      "/blog_posts/20230301_barnacle/index.html",
-      "/blog_posts/20230311_motivation/index.html"
+      "/blog_posts/20230311_motivation/index.html",
+      "/blog_posts/20230301_barnacle/index.html"
     ]
   },
   {
     "listing": "/thesis_updates.html",
     "items": [
-      "/thesis_docs/20230323_acoustic_detections_depthtemp/index.html",
-      "/thesis_docs/20230320_migration_analyses/index.html",
-      "/thesis_docs/20230322_dst_all_daily/index.html",
       "/thesis_docs/20230313_fft/index.html",
+      "/thesis_docs/20230228_focus1_puppinggrounds/index.html",
       "/thesis_docs/20230227_acoustic_data_month_sex/index.html",
       "/thesis_docs/20230227_actel_residency/index.html",
       "/thesis_docs/20230227_vertical_data_exploration/index.html"
