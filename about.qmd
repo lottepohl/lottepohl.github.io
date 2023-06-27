@@ -1,16 +1,27 @@
 ---
 title: "About"
 ---
-
+<!-- ------------------------------------------------------------------------ -->
 ## What do I do right now?
 
-I am currently writing my master thesis at the [Flemish Marine Institute (VLIZ)](https://vliz.be) under the guidance of [Jan Reubens](https://www.linkedin.com/in/jan-reubens-966a8524/), [Niels Brevé](https://www.wur.nl/en/Persons/Niels-NWP-Niels-Breve-MSc.htm) and [Carlota Muñiz](https://www.linkedin.com/in/carlotamuniz/). My thesis project involves data on the starry smooth-hound shark, collected by the [European Tracking Network (ETN)](https://lifewatch.be/etn/). I analyse and visualise the movement of 30 sharks in the most understandable way for non-scientists with an RShiny application. With my work I aim to bridge the gap between science and policy-making through maps and other visualisation methods.
+I completed my Master's degree in Marine Biological Resources (IMBRsea) in June, 2023.
+From September 2023 onward, I am working with the [Marine Observation Center](https://vliz.be/en/what-we-do/research/marine-observation-centre) at the [Flanders Marine Institute (VLIZ)](https://vliz.be) in Ostend, Belgium.
+------------------------------------------------------------------------
+
+<!-- I am currently writing my master thesis at the [Flanders Marine Institute (VLIZ)](https://vliz.be) under the guidance of [Jan Reubens](https://www.linkedin.com/in/jan-reubens-966a8524/), [Niels Brevé](https://www.wur.nl/en/Persons/Niels-NWP-Niels-Breve-MSc.htm) and [Carlota Muñiz](https://www.linkedin.com/in/carlotamuniz/).  -->
+
+My Master Thesis project involved the analysis of tracking data on the Starry smooth-hound shark *Mustelus asterias*, collected by the [European Tracking Network (ETN)](https://lifewatch.be/etn/). 30 individuals were equipped with novel Acoustic Data Storage Tags (ADST) a few years ago. These tags combine two tracking technologies, name acoustic tags and data storage/archival tags. The acoustic part of the tag emits a unique acoustic signal that can be picked up by an acoustic receiver that is placed under water (when the tag is within a certain range of the receiver, usually a few hundred meters). Such receiver networks are established more and more, in coastal waters. The receivers need to be maintained and accessed by humans (to download the detection data and change batteries, for instance). Moreover, the receivers are either submerged attached to heavy metal frames, or attached to buoys. For that reason, acoustic receivers can only be maintained in coastal, accessible areas.
+To also get data about the movement of fish when they are outside of areas that are covered by acoustic receivers, the second part of the tag logs environmental variables (most importantly, depth and temperature) in predefined intervals. To access these data logs, the tag needs to be retrieved, however.
+
+For my thesis, I analysed both data on acoustic detections and depthlogs of the tags that were recovered.
+
+<!-- I analysed and visualise the movement of 30 sharks in the most understandable way for non-scientists with an RShiny application. With my work I aim to bridge the gap between science and policy-making through maps and other visualisation methods. -->
 
 ------------------------------------------------------------------------
 
 ### My degree - studying all over Europe
 
-My study course is the Erasmus Mundus master's degree in Marine Biological Resources ([IMBRSea](http://imbrsea.eu)) which gives me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master's, I did a bachelor's degree in [Biomimetics](https://www.hs-bremen.de/en/study/degree-programme/international-degree-programme-in-biomimetics-bsc/) at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology.
+My study course was the Erasmus Mundus master's degree in Marine Biological Resources ([IMBRSea](http://imbrsea.eu)) which gave me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master's, I did a bachelor's degree in [Biomimetics](https://www.hs-bremen.de/en/study/degree-programme/international-degree-programme-in-biomimetics-bsc/) at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology.
 
 ------------------------------------------------------------------------
 

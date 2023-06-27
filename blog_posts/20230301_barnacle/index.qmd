@@ -50,13 +50,15 @@ library(leaflet.extras)
 library(leafem)
 
 # workspace
-dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+# dir_path <- "C:/Users/lotte.pohl/Documents/github_repos/ADST_Mustelus_asterias"
+dir_path <- "C:/Users/lotte/Documents/Repos_Gitkraken/MasterThesis_LottePohl_MDA"
 path_envdata <- paste0(dir_path, "/03_data/environmental_layers/")
 path_boundaries <- paste0(dir_path, "/03_data/marine_boundaries/")
-source(paste0(dir_path, "/02_scripts/02_load_data/load_environmental_data.R"))
-source(paste0(dir_path, "/02_scripts/02_load_data/load_human_activities.R"))
-source(paste0(dir_path, "/02_scripts/02_load_data/load_marine_boundaries.R"))
-source(paste0(dir_path, "/02_scripts/02_load_data/load_acoustic_detections.R"))
+source(paste0(dir_path, "/01_code/06_functions/functions.R"))
+source(paste0(dir_path, "/01_code/02_load_data/load_environmental_data.R"))
+source(paste0(dir_path, "/01_code/02_load_data/load_human_activities.R"))
+source(paste0(dir_path, "/01_code/02_load_data/load_marine_boundaries.R"))
+source(paste0(dir_path, "/01_code/02_load_data/load_acoustic_detections.R"))
 
 # make stations and port df
 locations <- close_stations %>% filter(station_name %in% c("bpns-Gardencity", "bpns-BelwindReefballs", "bpns-BIRKENFELS", "bpns-CPowerReefballs", "bpns-LottoBuoy", "bpns-Nauticaena", "bpns-Faulbaums")) %>% dplyr::select(station_name, deploy_latitude, deploy_longitude) %>% tibble::add_row(.before = 1, station_name = "Ostend port", deploy_longitude = 2.929222, deploy_latitude = 51.231842)

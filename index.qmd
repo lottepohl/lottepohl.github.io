@@ -18,13 +18,16 @@ about:
 
 **Hi, nice to see you here!**
 
-Welcome to my website, primarily there to share the latest updates about the exploration and analysis I do for my master thesis :)
+Welcome to my website! 
+Here, you can find some information about me, my education and my motivation to do what I do.
+
+I also started a blog (*North Sea Diaries*) so go check it out!
 
 ------------------------------------------------------------------------
 
 ## Education
 
--   **Master of Science** in Marine Biological Resources at Ghent University (expected July, 2023)
+-   **Master of Science** in Marine Biological Resources at Ghent University (June, 2023)
 
 -   **Bachelor of Science** in Biomimetics at Bremen University of Applied Sciences (2017 - 2021)
 
@@ -36,4 +39,4 @@ Welcome to my website, primarily there to share the latest updates about the exp
 
 ### CV
 
-Want to know more about me? Check out my [Curriculum Vitae](files/LottePohl_CV_February2023.pdf) :)
+Want to know more about me? Check out my [Curriculum Vitae](files/LottePohl_CV_July2023_website.pdf)!

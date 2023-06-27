@@ -4,14 +4,14 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "I am currently writing my master thesis at the Flemish Marine Institute (VLIZ) under the guidance of Jan Reubens, Niels Brevé and Carlota Muñiz. My thesis project involves data on the starry smooth-hound shark, collected by the European Tracking Network (ETN). I analyse and visualise the movement of 30 sharks in the most understandable way for non-scientists with an RShiny application. With my work I aim to bridge the gap between science and policy-making through maps and other visualisation methods.\n\n\n\nMy study course is the Erasmus Mundus master’s degree in Marine Biological Resources (IMBRSea) which gives me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master’s, I did a bachelor’s degree in Biomimetics at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology."
+    "text": "I completed my Master’s degree in Marine Biological Resources (IMBRsea) in June, 2023. From September 2023 onward, I am working with the Marine Observation Center at the Flanders Marine Institute (VLIZ) in Ostend, Belgium. ————————————————————————\n\nMy Master Thesis project involved the analysis of tracking data on the Starry smooth-hound shark Mustelus asterias, collected by the European Tracking Network (ETN). 30 individuals were equipped with novel Acoustic Data Storage Tags (ADST) a few years ago. These tags combine two tracking technologies, name acoustic tags and data storage/archival tags. The acoustic part of the tag emits a unique acoustic signal that can be picked up by an acoustic receiver that is placed under water (when the tag is within a certain range of the receiver, usually a few hundred meters). Such receiver networks are established more and more, in coastal waters. The receivers need to be maintained and accessed by humans (to download the detection data and change batteries, for instance). Moreover, the receivers are either submerged attached to heavy metal frames, or attached to buoys. For that reason, acoustic receivers can only be maintained in coastal, accessible areas. To also get data about the movement of fish when they are outside of areas that are covered by acoustic receivers, the second part of the tag logs environmental variables (most importantly, depth and temperature) in predefined intervals. To access these data logs, the tag needs to be retrieved, however.\nFor my thesis, I analysed both data on acoustic detections and depthlogs of the tags that were recovered.\n\n\n\n\nMy study course was the Erasmus Mundus master’s degree in Marine Biological Resources (IMBRSea) which gave me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master’s, I did a bachelor’s degree in Biomimetics at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology."
   },
   {
     "objectID": "about.html#what-do-i-do-right-now",
     "href": "about.html#what-do-i-do-right-now",
     "title": "About",
     "section": "",
-    "text": "I am currently writing my master thesis at the Flemish Marine Institute (VLIZ) under the guidance of Jan Reubens, Niels Brevé and Carlota Muñiz. My thesis project involves data on the starry smooth-hound shark, collected by the European Tracking Network (ETN). I analyse and visualise the movement of 30 sharks in the most understandable way for non-scientists with an RShiny application. With my work I aim to bridge the gap between science and policy-making through maps and other visualisation methods.\n\n\n\nMy study course is the Erasmus Mundus master’s degree in Marine Biological Resources (IMBRSea) which gives me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master’s, I did a bachelor’s degree in Biomimetics at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology."
+    "text": "I completed my Master’s degree in Marine Biological Resources (IMBRsea) in June, 2023. From September 2023 onward, I am working with the Marine Observation Center at the Flanders Marine Institute (VLIZ) in Ostend, Belgium. ————————————————————————\n\nMy Master Thesis project involved the analysis of tracking data on the Starry smooth-hound shark Mustelus asterias, collected by the European Tracking Network (ETN). 30 individuals were equipped with novel Acoustic Data Storage Tags (ADST) a few years ago. These tags combine two tracking technologies, name acoustic tags and data storage/archival tags. The acoustic part of the tag emits a unique acoustic signal that can be picked up by an acoustic receiver that is placed under water (when the tag is within a certain range of the receiver, usually a few hundred meters). Such receiver networks are established more and more, in coastal waters. The receivers need to be maintained and accessed by humans (to download the detection data and change batteries, for instance). Moreover, the receivers are either submerged attached to heavy metal frames, or attached to buoys. For that reason, acoustic receivers can only be maintained in coastal, accessible areas. To also get data about the movement of fish when they are outside of areas that are covered by acoustic receivers, the second part of the tag logs environmental variables (most importantly, depth and temperature) in predefined intervals. To access these data logs, the tag needs to be retrieved, however.\nFor my thesis, I analysed both data on acoustic detections and depthlogs of the tags that were recovered.\n\n\n\n\nMy study course was the Erasmus Mundus master’s degree in Marine Biological Resources (IMBRSea) which gave me the priviledge to study at a different European university each semester! So far, I have studied in Oviedo in the north of Spain, in Villefranche in the south of France, and in Belgium. Before my master’s, I did a bachelor’s degree in Biomimetics at the City University of Applied Sciences in Bremen, Germany. Biomimetics is all about finding nature-inspired solutions for technical problems us humans have, and I learned lots about functional Biology, materials science, (fluid) mechanics, data analysis and project management. I describe myself as a biologist with an interest in data, computers and technology."
   },
   {
     "objectID": "about.html#what-drives-me",
@@ -39,14 +39,14 @@
     "href": "index.html",
     "title": "Lotte Pohl",
     "section": "",
-    "text": "Hi, nice to see you here!\nWelcome to my website, primarily there to share the latest updates about the exploration and analysis I do for my master thesis :)"
+    "text": "Hi, nice to see you here!\nWelcome to my website! Here, you can find some information about me, my education and my motivation to do what I do.\nI also started a blog (North Sea Diaries) so go check it out!"
   },
   {
     "objectID": "index.html#education",
     "href": "index.html#education",
     "title": "Lotte Pohl",
     "section": "Education",
-    "text": "Education\n\nMaster of Science in Marine Biological Resources at Ghent University (expected July, 2023)\nBachelor of Science in Biomimetics at Bremen University of Applied Sciences (2017 - 2021)\n\n\n\n\n\nCV\nWant to know more about me? Check out my Curriculum Vitae :)"
+    "text": "Education\n\nMaster of Science in Marine Biological Resources at Ghent University (June, 2023)\nBachelor of Science in Biomimetics at Bremen University of Applied Sciences (2017 - 2021)\n\n\n\n\n\nCV\nWant to know more about me? Check out my Curriculum Vitae!"
   },
   {
     "objectID": "LICENSE.html",
@@ -61,173 +61,5 @@
     "title": "North Sea Diaries",
     "section": "",
     "text": "I’m super glad you made it to my personal blog!\n\nThe North Sea is not as boring as you might think! Join me as I discover it in a new light :)\n\n\nBlog Posts\n\n\n\n\n\n\n\n\n\n  \n\n\n\n\nOne Barnacle at a time\n\n\nNorth Sea Diaries, pt. 1\n\n\nWhat does a barnacle look like from the inside? This and other fascinating sea creatures we encountered on a day of boat work maintaining acoustic receivers for fish tagging research.\n\n\n\n\n\n\nMar 11, 2023\n\n\n\n\n\n\n  \n\n\n\n\nWhy am I starting a blog?\n\n\nNorth Sea Diaries, pt. 0\n\n\nI used to find the North Sea boring. Read about why this is starting to change.\n\n\n\n\n\n\nMar 10, 2023\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "Two tag serial numbers where only detected once: 1293301 and 1293296, and where thus omitted.\nFemales had a mean TL of 85.84 cm (\\(\\pm\\) 10.26, n = 19), and males had a mean TL of 77.64 cm (\\(\\pm\\) 3.75, n = 11).\n\n\n\nLast time, we wanted to resolve further how detections might differ between sex and season.\nI first divided the year into summer (from 1st of April to 30th of September) and winter (rest). During the winter period, however, there was not a single detection. So I then divided the detections by month.\nDetections range from April to October.\nOverall, 14 females were detected 1.0655^{4} times and 4 males were detected 285 times.\nI divided the study area into 3 parts: WS1 (the first array in the Westerscheldt), WS2 (the second, more east array in the Westerscheldt) and BPNS.\nWithin the BPNS, I grouped receivers more than 20 km away from the coast into offshore receivers and the ones closer than 20 km into coast receivers (analogous to Jolien Goossen’s Master Thesis).\n\n\n\n\n\ndetections per monthindividuals per month\n\n\n\nThe circle size corresponds to the number of detections from each station each month. It is relative to the total number of detections.\nThe red circles are detections of females, the blue circles are detections of males.\n\n\n\n\n\n\n\nI got salinity data from the ScheldeMonitor. They only reach until Vlissingen, unfortunately. So it roughly is the WS2 area. Below you see salinity averages. For some reason, there are no data for January, Febuary and March.\n\nsalinity (per month)salinity (per month & year)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe circle size corresponds to the number of individuals detected at a station each month. It is relative to the total number of detected individuals.\nThe red circles are detections of females, the blue circles are detections of males.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ndetections per monthindividuals per month\n\n\n\n\n\n\n\nThe upper facet corresponds to females (f), the lower facet corresponds to males (m).\n\n\n\n\n\n\n\nThe upper facet corresponds to females (f), the lower facet corresponds to males (m).\n\n\n\n\n\n\nAll detections, the colour denotes the area and the symbol denotes the sex.\n\n\n\n\n\n\n\n\n\nWe can see that females overall dominate the detections. By tagging 19 females and 11 males, we already integrated sex bias into the dataset. This bias further increased by only 4 males in contrast to 14 females being detected by a receiver.\nOne male was detected in the WS1 area. It must have swum into the array, because the sharks tagged in the WS (5km north of Cadzand) were all female. Between May and August, males are only detected in the BPNS. In the 4 months that males were detected, it was a different male each time (tag 311 in April, 315 in May, 316 in July and tag 295 in August).\nIn September, 2 females (tag 299 and 307) are detected in the WS2 area. There are only a couple of detections (38, on 22.09.2019 for tag 299 and 09.09.2019 for tag 307). Both these tags were also detected in the WS1 area in September 2019, tag 299 16 days before and 3 days after the detection in the WS2 area, and tag 307 1 day before and 7 days after. So tag 299 could have stayed in WS2 for 19 days, and tag 302 for 8 days.\n\n\n\n\n\nThe overall Residency Index (RI) is calculated by dividing the days of acoustic detections by the estimated battery time (for the ADST-V13TP it’s 518 days), for each tag.\nThe monthly Residency Index is calculated by dividing the days of detections in a month by the days of that month, for each tag.\nI further subdivided the monthly RI by grouping the detections per tag and month into the three areas (WS1, WS2 and BPNS) to get a Residency Index per area and month.\n\n\noverall RImonthly RIRI per area and month\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe left facet corresponds to females (f), the right facet corresponds to males (m).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n–&gt;"
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html#some-info",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html#some-info",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "Two tag serial numbers where only detected once: 1293301 and 1293296, and where thus omitted.\nFemales had a mean TL of 85.84 cm (\\(\\pm\\) 10.26, n = 19), and males had a mean TL of 77.64 cm (\\(\\pm\\) 3.75, n = 11).\n\n\n\nLast time, we wanted to resolve further how detections might differ between sex and season.\nI first divided the year into summer (from 1st of April to 30th of September) and winter (rest). During the winter period, however, there was not a single detection. So I then divided the detections by month.\nDetections range from April to October.\nOverall, 14 females were detected 1.0655^{4} times and 4 males were detected 285 times.\nI divided the study area into 3 parts: WS1 (the first array in the Westerscheldt), WS2 (the second, more east array in the Westerscheldt) and BPNS.\nWithin the BPNS, I grouped receivers more than 20 km away from the coast into offshore receivers and the ones closer than 20 km into coast receivers (analogous to Jolien Goossen’s Master Thesis)."
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html#maps",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html#maps",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "detections per monthindividuals per month\n\n\n\nThe circle size corresponds to the number of detections from each station each month. It is relative to the total number of detections.\nThe red circles are detections of females, the blue circles are detections of males.\n\n\n\n\n\n\n\nI got salinity data from the ScheldeMonitor. They only reach until Vlissingen, unfortunately. So it roughly is the WS2 area. Below you see salinity averages. For some reason, there are no data for January, Febuary and March.\n\nsalinity (per month)salinity (per month & year)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe circle size corresponds to the number of individuals detected at a station each month. It is relative to the total number of detected individuals.\nThe red circles are detections of females, the blue circles are detections of males."
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html#barplots",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html#barplots",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "detections per monthindividuals per month\n\n\n\n\n\n\n\nThe upper facet corresponds to females (f), the lower facet corresponds to males (m).\n\n\n\n\n\n\n\nThe upper facet corresponds to females (f), the lower facet corresponds to males (m)."
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html#abacus-plot",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html#abacus-plot",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "All detections, the colour denotes the area and the symbol denotes the sex."
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html#interpretations",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html#interpretations",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "We can see that females overall dominate the detections. By tagging 19 females and 11 males, we already integrated sex bias into the dataset. This bias further increased by only 4 males in contrast to 14 females being detected by a receiver.\nOne male was detected in the WS1 area. It must have swum into the array, because the sharks tagged in the WS (5km north of Cadzand) were all female. Between May and August, males are only detected in the BPNS. In the 4 months that males were detected, it was a different male each time (tag 311 in April, 315 in May, 316 in July and tag 295 in August).\nIn September, 2 females (tag 299 and 307) are detected in the WS2 area. There are only a couple of detections (38, on 22.09.2019 for tag 299 and 09.09.2019 for tag 307). Both these tags were also detected in the WS1 area in September 2019, tag 299 16 days before and 3 days after the detection in the WS2 area, and tag 307 1 day before and 7 days after. So tag 299 could have stayed in WS2 for 19 days, and tag 302 for 8 days."
-  },
-  {
-    "objectID": "thesis_docs/20230227_acoustic_data_month_sex/index.html#residency-index-ri",
-    "href": "thesis_docs/20230227_acoustic_data_month_sex/index.html#residency-index-ri",
-    "title": "Acoustic detections",
-    "section": "",
-    "text": "The overall Residency Index (RI) is calculated by dividing the days of acoustic detections by the estimated battery time (for the ADST-V13TP it’s 518 days), for each tag.\nThe monthly Residency Index is calculated by dividing the days of detections in a month by the days of that month, for each tag.\nI further subdivided the monthly RI by grouping the detections per tag and month into the three areas (WS1, WS2 and BPNS) to get a Residency Index per area and month.\n\n\noverall RImonthly RIRI per area and month\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe left facet corresponds to females (f), the right facet corresponds to males (m).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n–&gt;"
-  },
-  {
-    "objectID": "thesis_docs/20230227_actel_residency/index.html",
-    "href": "thesis_docs/20230227_actel_residency/index.html",
-    "title": "actel analysis",
-    "section": "",
-    "text": "I ran an actel residency analysis, here are some first results. They give some insights into diel patterns of individuals, and residency times in different areas.\n\nStudy Area\nThe area consists of two Sections, the BPNS and the Westerschelde, which contain several Receiver Arrays.\n\n\n\n\n\n\n\n\nArrival times\n\n\n\n\nGlobal residency\n\nAbsolute\n\n\n\nRelative\n\n\n\n\nIndividual residency"
-  },
-  {
-    "objectID": "thesis_docs/20230227_vertical_data_exploration/index.html",
-    "href": "thesis_docs/20230227_vertical_data_exploration/index.html",
-    "title": "Data Storage Tags",
-    "section": "",
-    "text": "6 out of 8 recovered tags stopped recording 13-38 days after tagging, i.e. the animal died.\n\nmapinfo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntag_serial_number\nrelease_date_time\ndetected\nsex\nlife_stage\nlength1\nlength1_unit\nweight\nweight_unit\ncapture_depth\nrecapture_date_time\nanimal_id\ntag_type\nscientific_name\nrelease_latitude\nrelease_longitude\n\n\n\n\n1293322\n2018-07-19 09:00:00\nno\nf\nunknown\n80\ncm\nNA\nNA\n3-20m\n2019-09-29\n3175\nacoustic-archival\nMustelus asterias\n51.61002\n3.649600\n\n\n1293319\n2018-07-19 12:00:00\nyes\nf\nunknown\n73\ncm\nNA\nNA\n3-20m\n2018-08-21\n3178\nacoustic-archival\nMustelus asterias\n51.61177\n3.649833\n\n\n1293295\n2018-07-19 13:00:00\nyes\nm\nadult\n78\ncm\nNA\nNA\n3-20m\n2018-09-27\n3182\nacoustic-archival\nMustelus asterias\n51.61250\n3.653783\n\n\n1293304\n2019-07-11 10:25:00\nno\nf\nmature\n72\ncm\n1.35\nkg\nNA\nNA\n5067\nacoustic-archival\nMustelus asterias\n51.61502\n3.657802\n\n\n1293310\n2019-07-11 12:20:00\nno\nm\nmature\n72\ncm\n1.40\nkg\nNA\n2019-09-03\n5069\nacoustic-archival\nMustelus asterias\n51.61822\n3.663183\n\n\n1293312\n2019-07-12 08:15:00\nno\nf\nunknown\n91\ncm\n2.80\nkg\nNA\n2019-08-29\n5218\nacoustic-archival\nMustelus asterias\n51.61058\n3.656550\n\n\n\n\n\n\n\n\n\nLooking at the 6 tracks in more detail, it strikes that 3 sharks swam to the wind farms while 3 sharks stayed very close to the release location, namely tag 304 (female, 13 days of liberty), tag 310 (male, 37 days of liberty) and tag 312 (females, 32 days of liberty). Those 3 sharks were released in 2019.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntag 295tag 304tag 310tag 312tag 319tag 322\n\n\nThis shark (male) swam out to the OWF. Comment on ETN: Washed ashore around 27/09/2018 Found at Westenschouwen, tussen domeinen twee en t oude Vuurpad.\n\n\n\n\n\n\n\nThis shark (female) stayed in the Oosterscheldt.\n\n\n\n\n\n\n\nThis shark (male) stayed in the Oosterscheldt.\n\n\n\n\n\n\n\nThis shark (female) stayed in the Oosterscheldt.\n\n\n\n\n\n\n\n\nThis shark (female) swam out to the OWF. Comment: found on 51°49’32.4”N 3°53’30.4”E (lat 51.825667, lon 3.891778)\n\n\n\n\n\n\n\nThis shark (female) swam out to the OWF.\n\n\n\n\n\n\n\n\n\n\n\n\nThese are the profiles of the 2 tags that recorded for over a year.\n\n\n\nWS - ChannelWinter (Channel)Channel - WSSummer (WS)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWS - North SeaNorth SeaNorth Sea - BPNSBPNSBPNS - North SeaNorth Sea"
-  },
-  {
-    "objectID": "thesis_docs/20230227_vertical_data_exploration/index.html#where-we-left-off",
-    "href": "thesis_docs/20230227_vertical_data_exploration/index.html#where-we-left-off",
-    "title": "Data Storage Tags",
-    "section": "",
-    "text": "6 out of 8 recovered tags stopped recording 13-38 days after tagging, i.e. the animal died.\n\nmapinfo\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntag_serial_number\nrelease_date_time\ndetected\nsex\nlife_stage\nlength1\nlength1_unit\nweight\nweight_unit\ncapture_depth\nrecapture_date_time\nanimal_id\ntag_type\nscientific_name\nrelease_latitude\nrelease_longitude\n\n\n\n\n1293322\n2018-07-19 09:00:00\nno\nf\nunknown\n80\ncm\nNA\nNA\n3-20m\n2019-09-29\n3175\nacoustic-archival\nMustelus asterias\n51.61002\n3.649600\n\n\n1293319\n2018-07-19 12:00:00\nyes\nf\nunknown\n73\ncm\nNA\nNA\n3-20m\n2018-08-21\n3178\nacoustic-archival\nMustelus asterias\n51.61177\n3.649833\n\n\n1293295\n2018-07-19 13:00:00\nyes\nm\nadult\n78\ncm\nNA\nNA\n3-20m\n2018-09-27\n3182\nacoustic-archival\nMustelus asterias\n51.61250\n3.653783\n\n\n1293304\n2019-07-11 10:25:00\nno\nf\nmature\n72\ncm\n1.35\nkg\nNA\nNA\n5067\nacoustic-archival\nMustelus asterias\n51.61502\n3.657802\n\n\n1293310\n2019-07-11 12:20:00\nno\nm\nmature\n72\ncm\n1.40\nkg\nNA\n2019-09-03\n5069\nacoustic-archival\nMustelus asterias\n51.61822\n3.663183\n\n\n1293312\n2019-07-12 08:15:00\nno\nf\nunknown\n91\ncm\n2.80\nkg\nNA\n2019-08-29\n5218\nacoustic-archival\nMustelus asterias\n51.61058\n3.656550\n\n\n\n\n\n\n\n\n\nLooking at the 6 tracks in more detail, it strikes that 3 sharks swam to the wind farms while 3 sharks stayed very close to the release location, namely tag 304 (female, 13 days of liberty), tag 310 (male, 37 days of liberty) and tag 312 (females, 32 days of liberty). Those 3 sharks were released in 2019."
-  },
-  {
-    "objectID": "thesis_docs/20230227_vertical_data_exploration/index.html#depth-and-temperature-profiles",
-    "href": "thesis_docs/20230227_vertical_data_exploration/index.html#depth-and-temperature-profiles",
-    "title": "Data Storage Tags",
-    "section": "",
-    "text": "tag 295tag 304tag 310tag 312tag 319tag 322\n\n\nThis shark (male) swam out to the OWF. Comment on ETN: Washed ashore around 27/09/2018 Found at Westenschouwen, tussen domeinen twee en t oude Vuurpad.\n\n\n\n\n\n\n\nThis shark (female) stayed in the Oosterscheldt.\n\n\n\n\n\n\n\nThis shark (male) stayed in the Oosterscheldt.\n\n\n\n\n\n\n\nThis shark (female) stayed in the Oosterscheldt.\n\n\n\n\n\n\n\n\nThis shark (female) swam out to the OWF. Comment: found on 51°49’32.4”N 3°53’30.4”E (lat 51.825667, lon 3.891778)\n\n\n\n\n\n\n\nThis shark (female) swam out to the OWF."
-  },
-  {
-    "objectID": "thesis_docs/20230227_vertical_data_exploration/index.html#depth-and-temp-profiles-of-long-term-dst-data",
-    "href": "thesis_docs/20230227_vertical_data_exploration/index.html#depth-and-temp-profiles-of-long-term-dst-data",
-    "title": "Data Storage Tags",
-    "section": "",
-    "text": "These are the profiles of the 2 tags that recorded for over a year.\n\n\n\nWS - ChannelWinter (Channel)Channel - WSSummer (WS)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWS - North SeaNorth SeaNorth Sea - BPNSBPNSBPNS - North SeaNorth Sea"
-  },
-  {
-    "objectID": "thesis_docs/20230313_fft/index.html",
-    "href": "thesis_docs/20230313_fft/index.html",
-    "title": "Depth logs FFT",
-    "section": "",
-    "text": "I computed an FFT on the raw depth logs from the recovered DSTs and plotted periodograms.\nFor most of the sharks, diurnal patterns with periods of 6, 12 and 24h are visible in the periodograms.\nI have to still pre-process the data, i.e. smooth them (rolling mean?) and filter out the time after the sharks’ deaths.\n\n\nSharks that stayed in the Oosterschelde\n\n\ntag 295tag 319tag 322\n\n\n\n\n\n\n\n\n\n\n\n\nTag 295 logged for 46 days between 2018-07-19 and 2018-09-03.\n\n\n\n\n\n\n\n\n\n\n\n\nTag 319 logged for 32 days between 2018-07-19 and 2018-08-20.\n\n\n\n\n\n\n\n\n\n\n\n\nTag 322 logged for 33 days between 2018-07-19 and 2018-08-21.\n\n\n\n\n\n\nSharks that swam to the OWF\n\n\ntag 304tag 310tag 312\n\n\n\n\n\n\n\n\n\n\n\n\nTag 304 logged for 22 days between 2019-07-11 and 2019-08-02.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTag 310 logged for 46 days between 2019-07-11 and 2019-08-26.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTag 312 logged for 40 days between 2019-07-12 and 2019-08-21.\n\n\n\n\n\n\n\n\nSharks that logged for &gt;1 year\n\n\ntag 308tag 321\n\n\n\n\n\n\n\n\n\n\n\n\nTag 308 logged for 366 days between 2018-08-02 and 2019-08-03.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTag 321 logged for 485 days between 2018-07-19 and 2019-11-16.\n\n\n\n\n\n\n\n\nMap"
-  },
-  {
-    "objectID": "thesis_docs/20230320_migration_analyses/index.html",
-    "href": "thesis_docs/20230320_migration_analyses/index.html",
-    "title": "DST migration analyses",
-    "section": "",
-    "text": "Research Question: can migration and residency behaviour be inferred from the depth log?"
-  },
-  {
-    "objectID": "thesis_docs/20230320_migration_analyses/index.html#depth-median-min-and-max",
-    "href": "thesis_docs/20230320_migration_analyses/index.html#depth-median-min-and-max",
-    "title": "DST migration analyses",
-    "section": "Depth median, min and max",
-    "text": "Depth median, min and max\n\nfemalemale\n\n\n\n\n\n\n\n\n\n\n\nThere are peaks in the change of daily median in September, December (this is influenced by the non-accurate depth measurements, though), March and May.\nThere seems to be no clearly visible pattern in daily vertical migration, comparing between potentially migrating and residential periods.\nThese months I will have a further look into. \n\n\n\n\n\n\n\n\n\n\n\n\nHere we see peaks in the change of daily median in October 2018, May 2019, August 2019 and October 2019.\nBoth in October 2018 and 2019, we see reverse Diel Vertical Migration.\n\n\n\n\nNote: a rolling mean over 3 days was applied to smooth the data."
-  },
-  {
-    "objectID": "thesis_docs/20230320_migration_analyses/index.html#daily-vertical-migration",
-    "href": "thesis_docs/20230320_migration_analyses/index.html#daily-vertical-migration",
-    "title": "DST migration analyses",
-    "section": "Daily Vertical Migration",
-    "text": "Daily Vertical Migration\n\nDiel Vertical Migration (DVM): Depth during day significantly deeper than during night.\nreverse DVM (rDVM): Depth during night significantly deeper than during day.\nno DVM (nDVM): No significant difference between depth during night and day.\n\nThere does not seem to be a pattern between potential activity (migrating/residing) and Daily Vertical Migration behaviour.\n\nfemalemale"
-  },
-  {
-    "objectID": "thesis_docs/20230320_migration_analyses/index.html#vertical-speed-vs-depth",
-    "href": "thesis_docs/20230320_migration_analyses/index.html#vertical-speed-vs-depth",
-    "title": "DST migration analyses",
-    "section": "Vertical speed vs depth",
-    "text": "Vertical speed vs depth\nVertical speed = the absolute difference between two subsequent measurements divided by the number of samples taken per minute (Units = m/min).\n\nThere is a bimodal distribution in monthly vertical speed, no matter the depth that was swum in and the potential activity (migrating/resting).\n\n\nfemalemale"
-  },
-  {
-    "objectID": "thesis_docs/20230322_dst_all_daily/index.html",
-    "href": "thesis_docs/20230322_dst_all_daily/index.html",
-    "title": "daily vertical patterns of DSTs",
-    "section": "",
-    "text": "all three dst tags staying in the Oosterschelde and dying there were tagged in 2018.\nall three dst tags swimming to the OWF were tagged in 2019."
-  },
-  {
-    "objectID": "thesis_docs/20230323_acoustic_detections_depthtemp/index.html",
-    "href": "thesis_docs/20230323_acoustic_detections_depthtemp/index.html",
-    "title": "acoustic detections: depth & temp",
-    "section": "",
-    "text": "Acoustic detections and depth\nQuestion: Do you think the data is sufficient to find patterns?\n\nI could try and find if there are diurnal patterns visible in the data\nbut for fft, you need regular data which we don’t have.\n\n\n\n\n\n\n\n\n\n\nThe points with the black outline are from stations in the western receiver array in the Westerschelde."
-  },
-  {
-    "objectID": "thesis_docs/20230406_wavelet_analysis/index.html",
-    "href": "thesis_docs/20230406_wavelet_analysis/index.html",
-    "title": "Wavelet analysis",
-    "section": "",
-    "text": "What I did: Compute Continuous Wavelet Tranforms (CWT) on daily summary statistics of two starry smooth-hound sharks that logged depth for ~1 year."
-  },
-  {
-    "objectID": "thesis_docs/20230406_wavelet_analysis/index.html#female-shark-tag-308",
-    "href": "thesis_docs/20230406_wavelet_analysis/index.html#female-shark-tag-308",
-    "title": "Wavelet analysis",
-    "section": "female shark (tag 308)",
-    "text": "female shark (tag 308)\n\nDaily summary statistics\nPlot below: Daily summary statistics for tag 308: depth range, median depth, change of daily median, diel vertical migration behavaiour (DVM = diel vertical migration, rDVM = reverse diel vertical migration, nDVM = no diel vertical migration).\n\n\n\n\n\n\n\nContinuous Wavelet Transform\n\n\n\n\n\nPlot of the continuous wavelet transform of the daily median. Colour denotes the power of the period, log2-transformed.\n\n\nOther\n\n\n\n\n\n\n\n\nTop: Raw depth profile showing every 30th value (resulting in one point per hour), Temperature as colour.”\nBottom: Autocorrelation plot of the daily median depth."
-  },
-  {
-    "objectID": "thesis_docs/20230406_wavelet_analysis/index.html#male-shark-tag-321",
-    "href": "thesis_docs/20230406_wavelet_analysis/index.html#male-shark-tag-321",
-    "title": "Wavelet analysis",
-    "section": "male shark (tag 321)",
-    "text": "male shark (tag 321)\n\nDaily summary statistics\nPlot below: Daily summary statistics for tag 321: depth range, median depth, change of daily median, diel vertical migration behavaiour (DVM = diel vertical migration, rDVM = reverse diel vertical migration, nDVM = no diel vertical migration).\n\n\n\n\n\n\n\nContinuous Wavelet Transform\n\n\n\n\n\nPlot of the continuous wavelet transform of the daily median. Colour denotes the power of the period, log2-transformed.\n\n\nOther\n\n\n\n\n\n\n\n\nTop: Raw depth profile showing every 30th value (resulting in one point per hour), Temperature as colour.”\nBottom: Autocorrelation plot of the daily median depth."
-  },
-  {
-    "objectID": "thesis_updates.html",
-    "href": "thesis_updates.html",
-    "title": "Master Thesis Updates",
-    "section": "",
-    "text": "Hi there! Below you find some general updates. The documents on the bottom of this page give a more detailed insight into my progress."
-  },
-  {
-    "objectID": "thesis_updates.html#update-documents",
-    "href": "thesis_updates.html#update-documents",
-    "title": "Master Thesis Updates",
-    "section": "Update Documents",
-    "text": "Update Documents"
   }
 ]

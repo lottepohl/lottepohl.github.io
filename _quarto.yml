@@ -11,10 +11,10 @@ website:
         text: Home
       - about.qmd
       - north_sea_blog.qmd
-      - thesis_updates.qmd
+      # - thesis_updates.qmd
       # - thesis_docs/acoustic_season_sex.qmd
       # - thesis_docs/vertical_data_exploration.qmd
-      - href: files/LottePohl_CV_February2023.pdf
+      - href: files/LottePohl_CV_July2023_website.pdf
         text: cv
       - icon: github # add icons that link to social media, etc.
         href: https://github.com/lottepohl
